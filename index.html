@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carlo Pinto - CPA | AI Practitioner</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a2e;
+            --text-primary: #f0f0f0;
+            --text-secondary: #b8b8b8;
+            --accent-blue: #4a9eff;
+            --accent-green: #52d3aa;
+            --accent-purple: #8b7ff7;
+            --node-glow: #4a9eff;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Neural Network Background */
+        #neural-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        /* Navigation Neural Network */
+        .neural-nav {
+            position: fixed;
+            top: 50%;
+            right: 30px;
+            transform: translateY(-50%);
+            z-index: 1000;
+        }
+
+        .node {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            margin: 40px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .node::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, var(--accent-blue) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .node::after {
+            content: attr(data-label);
+            position: absolute;
+            right: 80px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 5px 15px;
+            border-radius: 20px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-size: 14px;
+            border: 1px solid var(--accent-blue);
+        }
+
+        .node:hover::after {
+            opacity: 1;
+        }
+
+        .node-core {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--accent-blue);
+        }
+
+        .node.active .node-core {
+            background: var(--accent-green);
+            box-shadow: 0 0 30px var(--accent-green);
+        }
+
+        /* Connecting Lines */
+        .neural-connection {
+            position: absolute;
+            width: 2px;
+            height: 40px;
+            background: linear-gradient(to bottom, transparent, var(--accent-blue), transparent);
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.5;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.3); opacity: 0.3; }
+            100% { transform: scale(1); opacity: 0.7; }
+        }
+
+        /* Sections */
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #6b9fff, #a890fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #e8e8e8;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 20px 0 15px;
+            color: #6b9fff;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+        }
+
+        /* Home Section */
+        #home {
+            background: radial-gradient(ellipse at center, rgba(0, 217, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .hero-content {
+            text-align: center;
+            animation: fadeInUp 1s ease;
+        }
+
+        .tagline {
+            font-size: 1.3rem;
+            color: #7db8e8;
+            margin-bottom: 40px;
+        }
+
+        /* Background Section */
+        .timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .timeline-item {
+            margin-bottom: 40px;
+            padding-left: 60px;
+            position: relative;
+            animation: fadeInLeft 0.8s ease;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--accent-blue);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 27px;
+            top: 20px;
+            width: 2px;
+            height: calc(100% + 20px);
+            background: linear-gradient(to bottom, var(--accent-blue), transparent);
+        }
+
+        /* AI Journey Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .project-card {
+            background: rgba(26, 26, 46, 0.6);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-green);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tech-tag {
+            background: rgba(74, 158, 255, 0.15);
+            border: 1px solid #5a7fa6;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #c8d8e8;
+        }
+
+        /* Video Section */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 900px;
+            margin: 40px auto;
+            border-radius: 15px;
+            box-shadow: 0 0 50px rgba(0, 217, 255, 0.3);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 15px;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            background: rgba(0, 217, 255, 0.1);
+            border: 2px solid var(--accent-blue);
+            border-radius: 30px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            background: var(--accent-blue);
+            color: var(--bg-primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.5);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .neural-nav {
+                display: none;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+
+        /* Data Flow Animation */
+        .data-flow {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .data-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-blue);
+            animation: flow 8s linear infinite;
+        }
+
+        @keyframes flow {
+            0% {
+                transform: translate(0, 100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+                transform: translate(10vw, 80vh) scale(1);
+            }
+            90% {
+                opacity: 1;
+                transform: translate(90vw, 10vh) scale(1);
+            }
+            100% {
+                transform: translate(100vw, 0) scale(0);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Neural Network Background -->
+    <canvas id="neural-bg"></canvas>
+
+    <!-- Data Flow Animation -->
+    <div class="data-flow"></div>
+
+    <!-- Navigation Neural Network -->
+    <nav class="neural-nav">
+        <div class="node active" data-label="Introduction" onclick="scrollToSection('home')">
+            <div class="node-core"></div>
+        </div>
+        <div class="neural-connection"></div>
+        <div class="node" data-label="Background" onclick="scrollToSection('background')">
+            <div class="node-core"></div>
+        </div>
+        <div class="neural-connection"></div>
+        <div class="node" data-label="AI Journey" onclick="scrollToSection('ai-journey')">
+            <div class="node-core"></div>
+        </div>
+        <div class="neural-connection"></div>
+        <div class="node" data-label="Video" onclick="scrollToSection('video')">
+            <div class="node-core"></div>
+        </div>
+        <div class="neural-connection"></div>
+        <div class="node" data-label="Contact" onclick="scrollToSection('contact')">
+            <div class="node-core"></div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Carlo Pinto</h1>
+                <p class="tagline">CPA | AI Practitioner</p>
+                <p>I am a Certified Public Accountant turned AI practitioner, bridging the gap between traditional finance and cutting-edge artificial intelligence. My mission is to revolutionize accounting and business processes through innovative AI solutions, bringing automation and intelligence to workflows that have remained unchanged for decades.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Professional Background -->
+    <section id="background">
+        <div class="container">
+            <h2>Professional Background</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>Certified Public Accountant</h3>
+                    <p>Licensed CPA with extensive experience in financial reporting, auditing, and tax compliance. Led teams in implementing accounting best practices and ensuring regulatory compliance across multiple industries.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Educator & Mentor</h3>
+                    <p>Former accounting educator passionate about knowledge transfer and professional development. Taught complex financial concepts to diverse audiences and mentored aspiring CPAs through their certification journey.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Leadership & Innovation</h3>
+                    <p>Spearheaded digital transformation initiatives in traditional accounting firms, introducing automation tools and modern workflows that increased efficiency by over 40%.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Journey & Projects -->
+    <section id="ai-journey">
+        <div class="container">
+            <h2>AI Journey & Projects</h2>
+            <p>My transition to AI represents a natural evolution of my commitment to innovation in professional services. Here are my key focus areas:</p>
+            
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>Open-Source LLM Development</h3>
+                    <p>Hosting and fine-tuning open-source language models including LLaMA 3 and Gemma for specialized accounting and financial applications.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">LLaMA 3</span>
+                        <span class="tech-tag">Gemma</span>
+                        <span class="tech-tag">PyTorch</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <h3>RAG Systems Architecture</h3>
+                    <p>Building sophisticated Retrieval-Augmented Generation systems that combine AI capabilities with domain-specific knowledge bases for accurate financial insights.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">LangChain</span>
+                        <span class="tech-tag">Vector DBs</span>
+                        <span class="tech-tag">Embeddings</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <h3>Accounting Automation</h3>
+                    <p>Implementing AI-driven automation in accounting workflows, from invoice processing to tax calculations, reducing manual work by 70%.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">OCR</span>
+                        <span class="tech-tag">ML Pipeline</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <h3>AI-Powered Tax Solutions</h3>
+                    <p>Developing intelligent tax preparation tools that leverage AI to identify deductions, ensure compliance, and optimize tax strategies.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">NLP</span>
+                        <span class="tech-tag">Rules Engine</span>
+                        <span class="tech-tag">API Integration</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section id="video">
+        <div class="container">
+            <h2>See AI in Action</h2>
+            <p>Watch how I'm transforming accounting practices with artificial intelligence:</p>
+            <div class="video-container">
+                <!-- Replace with your actual YouTube/Vimeo embed code -->
+                <iframe 
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                    title="AI in Accounting Demo"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="contact-content">
+                <h2>Let's Connect</h2>
+                <p>I'm always excited to discuss AI applications in accounting, collaborate on innovative projects, or help organizations embrace the future of finance.</p>
+                
+                <div class="contact-links">
+                    <a href="mailto:hello@carlopinto.pro" class="contact-link">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                            <path d="m22 7-10 5L2 7"></path>
+                        </svg>
+                        hello@carlopinto.pro
+                    </a>
+                    <a href="https://linkedin.com/in/carlopinto" class="contact-link" target="_blank">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                        LinkedIn
+                    </a>
+                    <a href="https://github.com/carlopinto" class="contact-link" target="_blank">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Neural Network Background Animation
+        const canvas = document.getElementById('neural-bg');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const nodes = [];
+        const numNodes = 50;
+        
+        class Node {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 3 + 1;
+            }
+            
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+            
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#00d9ff';
+                ctx.fill();
+            }
+        }
+        
+        // Create nodes
+        for (let i = 0; i < numNodes; i++) {
+            nodes.push(new Node());
+        }
+        
+        // Animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw connections
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.strokeStyle = `rgba(0, 217, 255, ${1 - distance / 150})`;
+                        ctx.stroke();
+                    }
+                }
+            }
+            
+            // Update and draw nodes
+            nodes.forEach(node => {
+                node.update();
+                node.draw();
+            });
+            
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+        
+        // Resize handler
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+        
+        // Scroll to section
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+            updateActiveNode(sectionId);
+        }
+        
+        // Update active node on scroll
+        function updateActiveNode(sectionId) {
+            const nodes = document.querySelectorAll('.node');
+            const sections = ['home', 'background', 'ai-journey', 'video', 'contact'];
+            const index = sections.indexOf(sectionId);
+            
+            nodes.forEach((node, i) => {
+                if (i === index) {
+                    node.classList.add('active');
+                } else {
+                    node.classList.remove('active');
+                }
+            });
+        }
+        
+        // Intersection Observer for section tracking
+        const sections = document.querySelectorAll('section');
+        const observerOptions = {
+            threshold: 0.5
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    updateActiveNode(entry.target.id);
+                }
+            });
+        }, observerOptions);
+        
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Data flow particles
+        function createDataParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'data-particle';
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.animationDelay = Math.random() * 8 + 's';
+            particle.style.animationDuration = (8 + Math.random() * 4) + 's';
+            document.querySelector('.data-flow').appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 12000);
+        }
+        
+        // Create data particles periodically
+        setInterval(createDataParticle, 500);
+        
+        // Initial particles
+        for (let i = 0; i < 10; i++) {
+            setTimeout(createDataParticle, i * 200);
+        }
+    </script>
+</body>
+</html>
