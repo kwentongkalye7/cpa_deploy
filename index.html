@@ -43,6 +43,7 @@
             opacity: 0.65; 
         }
 
+        /* Desktop Navigation */
         .neural-nav {
             position: fixed;
             top: 50%;
@@ -51,7 +52,7 @@
             z-index: 1000;
         }
 
-        .node {
+        .neural-nav .node { /* Added specificity for desktop nav nodes */
             position: relative;
             width: 60px;
             height: 60px;
@@ -60,7 +61,7 @@
             transition: all 0.3s ease;
         }
 
-        .node::before {
+        .neural-nav .node::before {
             content: '';
             position: absolute;
             width: 100%;
@@ -70,7 +71,7 @@
             animation: pulse 2s infinite;
         }
 
-        .node::after {
+        .neural-nav .node::after {
             content: attr(data-label);
             position: absolute;
             right: 80px; 
@@ -87,12 +88,12 @@
             pointer-events: none; 
         }
 
-        .node:hover::after {
+        .neural-nav .node:hover::after {
             opacity: 1;
             transform: translateY(-50%) translateX(-10px); 
         }
 
-        .node-core {
+        .neural-nav .node-core { /* Added specificity */
             position: absolute;
             top: 50%;
             left: 50%;
@@ -104,12 +105,12 @@
             box-shadow: 0 0 20px var(--accent-blue);
         }
 
-        .node.active .node-core {
+        .neural-nav .node.active .node-core { /* Added specificity */
             background: var(--accent-green);
             box-shadow: 0 0 30px var(--accent-green);
         }
 
-        .neural-connection {
+        .neural-nav .neural-connection { /* Added specificity */
             position: absolute;
             width: 2px;
             background: linear-gradient(to bottom, transparent, var(--accent-blue), transparent);
@@ -124,6 +125,73 @@
             50% { transform: scale(1.3); opacity: 0.3; }
             100% { transform: scale(1); opacity: 0.7; }
         }
+
+        /* Mobile Navigation Styles */
+        .mobile-nav-toggle {
+            display: none; /* Hidden by default, shown in media query */
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001; /* Above neural-nav if it were visible, and above content */
+            background: rgba(26, 26, 46, 0.8);
+            border: 1px solid var(--accent-blue);
+            color: var(--text-primary);
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .mobile-nav-toggle svg {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+        }
+
+        .mobile-menu {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 10, 0.98); /* Darker, more opaque background */
+            z-index: 1000; /* Below toggle, above content */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-top: 70px; /* Space for close button or header */
+        }
+        .mobile-menu.active {
+            display: flex;
+        }
+        .mobile-menu a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1.5rem;
+            padding: 15px 0;
+            margin: 10px 0;
+            transition: color 0.3s ease;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            width: 80%;
+            text-align: center;
+        }
+        .mobile-menu a:last-child {
+            border-bottom: none;
+        }
+        .mobile-menu a:hover, .mobile-menu a.active-link {
+            color: var(--accent-green);
+        }
+        .mobile-menu .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 2rem; /* Larger close icon */
+            cursor: pointer;
+            padding: 10px;
+        }
+
 
         section {
             min-height: 100vh;
@@ -146,7 +214,7 @@
         h1 {
             font-size: clamp(2.5rem, 6vw, 4.5rem); 
             font-weight: 800;
-            margin-bottom: 25px; 
+            margin-bottom: 15px; /* Reduced margin for logo */
             background: linear-gradient(135deg, #6b9fff, #a890fe);
             -webkit-background-clip: text;
             background-clip: text;
@@ -192,6 +260,21 @@
         .hero-content p { 
             text-align: center; 
         }
+        
+        /* CP Logo Styles */
+        .cp-logo {
+            font-size: clamp(2.5rem, 5vw, 3.5rem); /* Responsive size */
+            font-weight: 700;
+            color: var(--accent-green); /* Use accent color */
+            border: 2px solid var(--accent-green);
+            padding: 10px 20px;
+            border-radius: 12px; /* Rounded corners */
+            display: inline-block; /* To allow padding and border */
+            margin-bottom: 25px; /* Space below logo */
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(82, 211, 170, 0.5); /* Subtle glow */
+        }
+
 
         .tagline {
             font-size: clamp(1.2rem, 3vw, 1.5rem); 
@@ -358,6 +441,9 @@
             .neural-nav {
                 display: none; 
             }
+            .mobile-nav-toggle { /* Show hamburger on smaller screens */
+                display: block;
+            }
              h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); }
              h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); }
         }
@@ -477,16 +563,37 @@
 <body>
     <canvas id="neural-bg"></canvas>
     <div class="data-flow"></div>
+
+    <button class="mobile-nav-toggle" aria-label="Open navigation menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="close-btn" aria-label="Close navigation menu">&times;</button>
+        <a href="#home" class="mobile-nav-link">Introduction</a>
+        <a href="#background" class="mobile-nav-link">Background</a>
+        <a href="#ai-journey" class="mobile-nav-link">AI Journey</a>
+        <a href="#contact" class="mobile-nav-link">Contact</a>
+    </div>
+
+
     <nav class="neural-nav">
         <div class="node active" data-label="Introduction" onclick="scrollToSection('home')">
             <div class="node-core"></div>
         </div>
+        <div class="neural-connection"></div>
         <div class="node" data-label="Background" onclick="scrollToSection('background')">
             <div class="node-core"></div>
         </div>
+        <div class="neural-connection"></div>
         <div class="node" data-label="AI Journey" onclick="scrollToSection('ai-journey')">
             <div class="node-core"></div>
         </div>
+        <div class="neural-connection"></div>
         <div class="node" data-label="Contact" onclick="scrollToSection('contact')">
             <div class="node-core"></div>
         </div>
@@ -495,9 +602,9 @@
     <section id="home">
         <div class="container">
             <div class="hero-content">
-                <h1>Carlo Pinto</h1>
-                <p class="tagline">CPA | AI Practitioner</p> 
-                <p>As a Certified Public Accountant and AI Practitioner, I bridge the crucial gap between traditional finance and transformative artificial intelligence. My mission is to empower businesses by revolutionizing accounting and operational workflows with intelligent automation, unlocking new levels of efficiency and insight.</p> 
+                <div class="cp-logo">CP</div> <h1>Carlo Pinto</h1>
+                <p class="tagline">CPA | AI Innovator</p> 
+                <p>As a Certified Public Accountant and AI Innovator, I bridge the crucial gap between traditional finance and transformative artificial intelligence. My mission is to empower businesses by revolutionizing accounting and operational workflows with intelligent automation, unlocking new levels of efficiency and insight.</p> 
             </div>
         </div>
     </section>
@@ -617,30 +724,31 @@
             constructor() {
                 const centerX = canvasWidth / 2;
                 const centerY = canvasHeight / 2;
-                const horizontalFocus = 0.95; 
-                const maxRadiusX = canvasWidth * 0.44 * horizontalFocus; 
-                const maxRadiusY = canvasHeight * 0.33; 
+                // MODIFIED: Brain shape to fill even more of the screen
+                const horizontalFocus = 0.98; // Closer to 1 for wider spread relative to height
+                const maxRadiusX = canvasWidth * 0.48 * horizontalFocus; // Approx 90-95% of width total
+                const maxRadiusY = canvasHeight * 0.46; // Approx 90-92% of height total
 
                 let r, angle;
                 do { 
                     r = Math.sqrt(Math.random()); 
                     angle = Math.random() * 2 * Math.PI;
-                } while (r < 0.01); 
+                } while (r < 0.005); // Allow nodes very close to the center for core density
 
                 this.x = centerX + r * maxRadiusX * Math.cos(angle);
                 this.y = centerY + r * maxRadiusY * Math.sin(angle);
 
-                this.vx = (Math.random() - 0.5) * 0.08; 
-                this.vy = (Math.random() - 0.5) * 0.08;
-                this.radius = Math.random() * 1.2 + 1.3; 
+                this.vx = (Math.random() - 0.5) * 0.07; // MODIFIED: Even slower, more subtle drift
+                this.vy = (Math.random() - 0.5) * 0.07;
+                this.radius = Math.random() * 1.1 + 1.2; // MODIFIED: Very small nodes for fine texture
                 
                 this.isFiring = false;
-                this.fireCooldown = Math.random() * 150 + 50; 
-                this.fireDuration = 26; 
+                this.fireCooldown = Math.random() * 130 + 40; // More frequent firing
+                this.fireDuration = 25; 
                 this.currentFireTime = 0;
 
-                this.baseColorOuter = `rgba(173, 216, 173, 0.30)`; 
-                this.baseColorInner = `rgba(200, 230, 200, 0.55)`; 
+                this.baseColorOuter = `rgba(173, 216, 173, 0.25)`; 
+                this.baseColorInner = `rgba(200, 230, 200, 0.50)`; 
             }
             
             update() {
@@ -649,23 +757,24 @@
                 
                 const centerX = canvasWidth / 2;
                 const centerY = canvasHeight / 2;
-                const brainBoundaryX = canvasWidth * 0.45; 
-                const brainBoundaryY = canvasHeight * 0.35;
+                // MODIFIED: Expanded brain boundaries to almost full screen
+                const brainBoundaryX = canvasWidth * 0.49; 
+                const brainBoundaryY = canvasHeight * 0.48;
 
                 const normalizedX = (this.x - centerX) / brainBoundaryX;
                 const normalizedY = (this.y - centerY) / brainBoundaryY;
                 const distanceFromEllipseCenterSq = normalizedX * normalizedX + normalizedY * normalizedY;
 
                 if (distanceFromEllipseCenterSq > 1) { 
-                    this.vx -= normalizedX * 0.005; 
-                    this.vy -= normalizedY * 0.005;
+                    this.vx -= normalizedX * 0.008; // Slightly stronger nudge
+                    this.vy -= normalizedY * 0.008;
                     
-                    this.vx *= 0.95;
-                    this.vy *= 0.95;
+                    this.vx *= 0.92; // Stronger damping
+                    this.vy *= 0.92;
 
-                    if (distanceFromEllipseCenterSq > 1.1) {
-                        this.x = centerX + normalizedX * brainBoundaryX * 0.98; 
-                        this.y = centerY + normalizedY * brainBoundaryY * 0.98;
+                    if (distanceFromEllipseCenterSq > 1.05) { // More aggressive pull-back
+                        this.x = centerX + normalizedX * brainBoundaryX * 0.97; 
+                        this.y = centerY + normalizedY * brainBoundaryY * 0.97;
                     }
                 }
 
@@ -678,12 +787,12 @@
                 } else {
                     this.fireCooldown--;
                     if (this.fireCooldown <= 0) {
-                        if (Math.random() < 0.045) { 
+                        if (Math.random() < 0.05) { // Increased firing chance for visible activity in dense net
                             this.isFiring = true;
                             this.currentFireTime = 0; 
-                            this.fireCooldown = Math.random() * 200 + 100; 
+                            this.fireCooldown = Math.random() * 180 + 80; 
                         } else {
-                            this.fireCooldown = Math.random() * 15 + 2; 
+                            this.fireCooldown = Math.random() * 12 + 2; 
                         }
                     }
                 }
@@ -694,14 +803,14 @@
                 if (this.isFiring) {
                     const fireProgress = this.currentFireTime / this.fireDuration;
                     const coreBrightness = 1 - Math.abs(fireProgress - 0.5) * 1.8;
-                    const haloAlpha = 0.06 + Math.sin(fireProgress * Math.PI) * 0.12; 
+                    const haloAlpha = 0.05 + Math.sin(fireProgress * Math.PI) * 0.10; // Very faint halo
 
-                    gradient.addColorStop(0, `rgba(230, 255, 230, ${0.4 + coreBrightness * 0.2})`); 
-                    gradient.addColorStop(0.4, `rgba(200, 240, 200, ${0.3 + coreBrightness * 0.15})`);
-                    gradient.addColorStop(1, `rgba(173, 216, 173, 0.20)`);
+                    gradient.addColorStop(0, `rgba(230, 255, 230, ${0.35 + coreBrightness * 0.15})`); 
+                    gradient.addColorStop(0.4, `rgba(200, 240, 200, ${0.25 + coreBrightness * 0.1})`);
+                    gradient.addColorStop(1, `rgba(173, 216, 173, 0.15)`);
                     
                     ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.radius + 0.8 + Math.sin(fireProgress * Math.PI) * 1.2, 0, Math.PI * 2); 
+                    ctx.arc(this.x, this.y, this.radius + 0.6 + Math.sin(fireProgress * Math.PI) * 1.0, 0, Math.PI * 2); 
                     ctx.fillStyle = `rgba(200, 230, 200, ${haloAlpha})`;
                     ctx.fill();
 
@@ -723,10 +832,11 @@
             canvasHeight = window.innerHeight;
             neuralBgCanvas.width = canvasWidth;
             neuralBgCanvas.height = canvasHeight;
-            const brainAreaApprox = Math.PI * (canvasWidth * 0.42) * (canvasHeight * 0.33);
-            const targetNodesPer10kPixels = 2.5; 
-            numBackgroundNodes = Math.floor(brainAreaApprox / 10000 * targetNodesPer10kPixels);
-            numBackgroundNodes = Math.max(200, Math.min(400, numBackgroundNodes)); 
+            // MODIFIED: Node count for a much denser, screen-filling brain
+            const brainEllipseArea = Math.PI * (canvasWidth * 0.48 * 0.98) * (canvasHeight * 0.46); // Area of the larger ellipse
+            const targetNodesPer10kPixels = 3.5; // Increased for more density
+            numBackgroundNodes = Math.floor(brainEllipseArea / 10000 * targetNodesPer10kPixels);
+            numBackgroundNodes = Math.max(250, Math.min(500, numBackgroundNodes)); // Clamp between 250-500
             
             for (let i = 0; i < numBackgroundNodes; i++) {
                  backgroundNodes.push(new BackgroundNode());
@@ -737,8 +847,9 @@
         function animateNeuralBackground() {
             ctx.clearRect(0, 0, canvasWidth, canvasHeight);
             
-            const connectionDistance = Math.min(75, canvasWidth / 12); 
-            const pulseLength = 7; 
+            // MODIFIED: Connection distance for denser, larger brain
+            const connectionDistance = Math.min(65, canvasWidth / 15); // Shorter connections for high density
+            const pulseLength = 6; 
             const baseConnectionColorRGB = getComputedStyle(document.documentElement).getPropertyValue('--connection-fire-color-base').trim();
 
             for (let i = 0; i < backgroundNodes.length; i++) {
@@ -750,14 +861,16 @@
                     const distance = Math.sqrt(dx * dx + dy * dy);
                     
                     if (distance < connectionDistance) {
-                        const baseLineAlpha = 0.06 - (distance / connectionDistance) * 0.055; 
+                        // MODIFIED: Extremely faint base lines
+                        const baseLineAlpha = 0.05 - (distance / connectionDistance) * 0.045; // Max 0.05, fades to 0.005
                         ctx.beginPath();
                         ctx.moveTo(nodeA.x, nodeA.y);
                         ctx.lineTo(nodeB.x, nodeB.y);
-                        ctx.strokeStyle = `rgba(${baseConnectionColorRGB}, ${Math.max(0.002, baseLineAlpha)})`; 
-                        ctx.lineWidth = 0.15; 
+                        ctx.strokeStyle = `rgba(${baseConnectionColorRGB}, ${Math.max(0.001, baseLineAlpha)})`; // Min alpha 0.001
+                        ctx.lineWidth = 0.1; // MODIFIED: Extremely thin base lines
                         ctx.stroke();
 
+                        // Draw pulse if nodeA is firing towards nodeB
                         if (nodeA.isFiring && nodeA.currentFireTime > 0) {
                             const fireProgress = nodeA.currentFireTime / nodeA.fireDuration;
                             
@@ -771,12 +884,14 @@
                                 ctx.beginPath();
                                 ctx.moveTo(pulseStartX, pulseStartY);
                                 ctx.lineTo(pulseEndX, pulseEndY);
-                                ctx.strokeStyle = `rgba(180, 230, 180, 0.25)`; 
-                                ctx.lineWidth = 0.8; 
+                                // MODIFIED: Very faint pale green pulse
+                                ctx.strokeStyle = `rgba(180, 230, 180, 0.20)`; 
+                                ctx.lineWidth = 0.7; // MODIFIED: Thinner pulse
                                 ctx.lineCap = 'round';
                                 ctx.stroke();
                             }
                         }
+                        // Draw pulse if nodeB is firing towards nodeA
                         else if (nodeB.isFiring && nodeB.currentFireTime > 0) {
                             const fireProgress = nodeB.currentFireTime / nodeB.fireDuration;
 
@@ -790,8 +905,9 @@
                                 ctx.beginPath();
                                 ctx.moveTo(pulseStartX, pulseStartY);
                                 ctx.lineTo(pulseEndX, pulseEndY);
-                                ctx.strokeStyle = `rgba(180, 230, 180, 0.25)`;
-                                ctx.lineWidth = 0.8; 
+                                // MODIFIED: Very faint pale green pulse
+                                ctx.strokeStyle = `rgba(180, 230, 180, 0.20)`;
+                                ctx.lineWidth = 0.7; // MODIFIED: Thinner pulse
                                 ctx.lineCap = 'round';
                                 ctx.stroke();
                             }
@@ -812,23 +928,67 @@
         
         window.addEventListener('resize', initializeNodes);
         
+        // --- Mobile Navigation Script ---
+        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+        const closeBtn = mobileMenu.querySelector('.close-btn');
+
+        if (mobileNavToggle && mobileMenu && closeBtn) {
+            mobileNavToggle.addEventListener('click', () => {
+                const isExpanded = mobileNavToggle.getAttribute('aria-expanded') === 'true' || false;
+                mobileNavToggle.setAttribute('aria-expanded', !isExpanded);
+                mobileMenu.classList.toggle('active');
+                // Optional: Toggle body overflow to prevent scrolling when menu is open
+                // document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            });
+
+            closeBtn.addEventListener('click', () => {
+                mobileNavToggle.setAttribute('aria-expanded', 'false');
+                mobileMenu.classList.remove('active');
+                // document.body.style.overflow = '';
+            });
+
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    const sectionId = link.getAttribute('href');
+                    scrollToSection(sectionId.substring(1)); // Remove # for function
+                    mobileNavToggle.setAttribute('aria-expanded', 'false');
+                    mobileMenu.classList.remove('active');
+                    // document.body.style.overflow = '';
+                });
+            });
+        }
+
+        // Scroll to section function (ensure it's globally accessible if needed, or pass as callback)
         window.scrollToSection = function(sectionId) { 
             const sectionElement = document.getElementById(sectionId);
             if (sectionElement) {
                 sectionElement.scrollIntoView({ behavior: 'smooth' });
-                updateActiveNavNode(sectionId); 
+                updateActiveNavNode(sectionId); // For desktop nav
+                updateActiveMobileLink(sectionId); // For mobile nav
             }
         }
         
-        const navNodes = document.querySelectorAll('.neural-nav .node');
+        const desktopNavNodes = document.querySelectorAll('.neural-nav .node'); // Renamed for clarity
 
-        function updateActiveNavNode(activeSectionId) {
-            navNodes.forEach(node => {
+        function updateActiveNavNode(activeSectionId) { // For desktop
+            desktopNavNodes.forEach(node => {
                 const sectionIdForNode = node.getAttribute('onclick').match(/'([^']+)'/)[1];
                 if (sectionIdForNode === activeSectionId) {
                     node.classList.add('active');
                 } else {
                     node.classList.remove('active');
+                }
+            });
+        }
+        
+        function updateActiveMobileLink(activeSectionId) { // For mobile
+            mobileNavLinks.forEach(link => {
+                if (link.getAttribute('href') === `#${activeSectionId}`) {
+                    link.classList.add('active-link');
+                } else {
+                    link.classList.remove('active-link');
                 }
             });
         }
@@ -844,6 +1004,7 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     updateActiveNavNode(entry.target.id);
+                    updateActiveMobileLink(entry.target.id);
                 }
             });
         }, observerOptions);
@@ -854,16 +1015,16 @@
             }
         });
 
-        const neuralNav = document.querySelector('.neural-nav');
-        const navNodeElements = Array.from(neuralNav.querySelectorAll('.node'));
+        const desktopNeuralNav = document.querySelector('.neural-nav'); // Renamed for clarity
+        const desktopNavNodeElements = Array.from(desktopNeuralNav.querySelectorAll('.node'));
 
-        function drawNavConnections() {
-            if (!neuralNav) return; 
-            neuralNav.querySelectorAll('.neural-connection').forEach(conn => conn.remove());
+        function drawDesktopNavConnections() { // Renamed for clarity
+            if (!desktopNeuralNav) return; 
+            desktopNeuralNav.querySelectorAll('.neural-connection').forEach(conn => conn.remove());
 
-            for (let i = 0; i < navNodeElements.length - 1; i++) {
-                const node1 = navNodeElements[i];
-                const node2 = navNodeElements[i+1];
+            for (let i = 0; i < desktopNavNodeElements.length - 1; i++) {
+                const node1 = desktopNavNodeElements[i];
+                const node2 = desktopNavNodeElements[i+1];
 
                 if (!node1 || !node2) continue; 
 
@@ -872,7 +1033,7 @@
                 
                 const rect1 = node1.getBoundingClientRect();
                 const rect2 = node2.getBoundingClientRect();
-                const navRect = neuralNav.getBoundingClientRect();
+                const navRect = desktopNeuralNav.getBoundingClientRect();
 
                 const top1_relative = rect1.top - navRect.top + (rect1.height / 2);
                 const top2_relative = rect2.top - navRect.top + (rect2.height / 2);
@@ -880,13 +1041,13 @@
                 conn.style.top = `${Math.min(top1_relative, top2_relative)}px`;
                 conn.style.height = `${Math.abs(top2_relative - top1_relative)}px`;
 
-                neuralNav.insertBefore(conn, node2); 
+                desktopNeuralNav.insertBefore(conn, node2); 
             }
         }
         
-        if (navNodeElements.length > 1 && window.innerWidth > 992) { 
-             drawNavConnections(); 
-             window.addEventListener('resize', drawNavConnections); 
+        if (desktopNavNodeElements.length > 1 && window.innerWidth > 992) { 
+             drawDesktopNavConnections(); 
+             window.addEventListener('resize', drawDesktopNavConnections); 
         }
 
         const dataFlowContainer = document.querySelector('.data-flow');
