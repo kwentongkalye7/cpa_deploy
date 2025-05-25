@@ -517,52 +517,11 @@
             }
         }
 
-        .data-flow {
-            position: fixed;
-            top:0; 
-            left:0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0; 
-            overflow: hidden; 
-        }
-
-        .data-particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--accent-green); 
-            border-radius: 50%;
-            box-shadow: 0 0 12px var(--accent-green); 
-            animation: flow 8s linear infinite;
-            opacity: 0; 
-        }
-
-        @keyframes flow {
-            0% {
-                transform: translate(var(--startX, 20vw), 110vh) scale(0.5); 
-                opacity: 0;
-            }
-            10%, 20% { 
-                opacity: 1;
-                transform: translate(var(--midX, 50vw), var(--midY, 50vh)) scale(1);
-            }
-            80%, 90% {
-                opacity: 1;
-                transform: translate(var(--endX, 80vw), var(--endY, -10vh)) scale(0.8); 
-            }
-            100% {
-                transform: translate(var(--endX, 80vw), -20vh) scale(0);
-                opacity: 0;
-            }
-        }
+        /* MODIFIED: Removed .data-flow and .data-particle styles as the animation is removed */
     </style>
 </head>
 <body>
     <canvas id="neural-bg"></canvas>
-    <div class="data-flow"></div>
-
     <button class="mobile-nav-toggle" aria-label="Open navigation menu" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -602,8 +561,8 @@
         <div class="container">
             <div class="hero-content">
                 <div class="cp-logo">CP</div> <h1>Carlo Pinto</h1>
-                <p class="tagline">CPA | AI Innovator</p> 
-                <p>As a Certified Public Accountant and AI Innovator, I bridge the crucial gap between traditional finance and transformative artificial intelligence. My mission is to empower businesses by revolutionizing accounting and operational workflows with intelligent automation, unlocking new levels of efficiency and insight.</p> 
+                <p class="tagline">CPA | AI Practitioner</p> 
+                <p>As a Certified Public Accountant and AI Practitioner, I bridge the crucial gap between traditional finance and transformative artificial intelligence. My mission is to empower businesses by revolutionizing accounting and operational workflows with intelligent automation, unlocking new levels of efficiency and insight.</p> 
             </div>
         </div>
     </section>
@@ -1042,37 +1001,7 @@
              window.addEventListener('resize', drawDesktopNavConnections); 
         }
 
-        const dataFlowContainer = document.querySelector('.data-flow');
-        const numDataParticles = 15; 
-
-        function createDataParticle() {
-            if (!dataFlowContainer) return; 
-
-            const particle = document.createElement('div');
-            particle.className = 'data-particle';
-            
-            particle.style.setProperty('--startX', `${Math.random() * 80 + 10}vw`); 
-            particle.style.setProperty('--midX', `${Math.random() * 60 + 20}vw`);   
-            particle.style.setProperty('--midY', `${Math.random() * 40 + 30}vh`);   
-            particle.style.setProperty('--endX', `${Math.random() * 70 + 15}vw`);   
-            particle.style.setProperty('--endY', `${Math.random() * 20 - 20}vh`);  
-
-            particle.style.animationDelay = `${Math.random() * 7}s`; 
-            particle.style.animationDuration = `${8 + Math.random() * 5}s`; 
-            
-            dataFlowContainer.appendChild(particle);
-            
-            setTimeout(() => {
-                if (particle.parentNode) { 
-                    particle.remove();
-                }
-            }, parseFloat(particle.style.animationDuration) * 1000 + parseFloat(particle.style.animationDelay) * 1000 + 500); 
-        }
-        
-        for (let i = 0; i < numDataParticles; i++) {
-            setTimeout(createDataParticle, i * (Math.random() * 300 + 200));
-        }
-        setInterval(createDataParticle, 2000); 
+        // MODIFIED: Removed Data Flow Particle Script
     });
     </script>
 </body>
