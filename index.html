@@ -214,7 +214,7 @@
         h1 {
             font-size: clamp(2.5rem, 6vw, 4.5rem); 
             font-weight: 800;
-            margin-bottom: 15px; /* Reduced margin for logo */
+            margin-bottom: 15px; 
             background: linear-gradient(135deg, #6b9fff, #a890fe);
             -webkit-background-clip: text;
             background-clip: text;
@@ -261,18 +261,17 @@
             text-align: center; 
         }
         
-        /* CP Logo Styles */
         .cp-logo {
-            font-size: clamp(2.5rem, 5vw, 3.5rem); /* Responsive size */
+            font-size: clamp(2.5rem, 5vw, 3.5rem); 
             font-weight: 700;
-            color: var(--accent-green); /* Use accent color */
+            color: var(--accent-green); 
             border: 2px solid var(--accent-green);
             padding: 10px 20px;
-            border-radius: 12px; /* Rounded corners */
-            display: inline-block; /* To allow padding and border */
-            margin-bottom: 25px; /* Space below logo */
+            border-radius: 12px; 
+            display: inline-block; 
+            margin-bottom: 25px; 
             letter-spacing: 1px;
-            text-shadow: 0 0 10px rgba(82, 211, 170, 0.5); /* Subtle glow */
+            text-shadow: 0 0 10px rgba(82, 211, 170, 0.5); 
         }
 
 
@@ -441,7 +440,7 @@
             .neural-nav {
                 display: none; 
             }
-            .mobile-nav-toggle { /* Show hamburger on smaller screens */
+            .mobile-nav-toggle { 
                 display: block;
             }
              h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); }
@@ -635,42 +634,49 @@
             <p>My evolution into AI is driven by a commitment to pioneering innovation within professional services. I focus on developing and implementing AI solutions that address real-world financial challenges and create tangible value.</p> 
             <div class="projects-grid">
                 <div class="project-card">
-                    <h3>Open-Source LLM Advancement</h3> 
-                    <p>Developing and fine-tuning leading open-source language models (LLaMA 3, Gemma) to create specialized AI tools for nuanced accounting and financial analysis.</p> 
+                    <h3>Self-hosting and Fine-tuning LLMs</h3>
+                    <p>My journey into fine-tuning LLMs locally for a Philippine tax assistant on an M3 Mac (16GB RAM) was a significant learning curve. With Gemma 2B, I navigated Hugging Face authentication, CMake build complexities, and library conflicts. A `requires_grad` error pushed me to disable gradient_checkpointing, initially causing NaNs. I managed to stabilize training by adopting a very low learning rate, a small rank, and switching to bfloat16. While deployment via Ollama was successful, Gemma struggled to fully overwrite some pre-trained factual errors (like tax rates), likely due to weak fine-tuning signals limited by my hardware and a dataset of only 600+ input/output pairs. Switching to TinyLlama 1.1B, the initial fine-tuning likely resulted in catastrophic forgetting, as it struggled with specific tax facts and showed weaker reasoning. This highlighted that pure fine-tuning faces significant hurdles with factual accuracy on small models, datasets, and constrained memory. My next step is a RAG setup with Llama 3 8B on a dedicated GPU for more robust and reliable results.</p>
                     <div class="tech-stack">
-                        <span class="tech-tag">LLaMA 3</span>
-                        <span class="tech-tag">Gemma</span>
-                        <span class="tech-tag">PyTorch</span>
+                        <span class="tech-tag">Gemma 2B</span>
+                        <span class="tech-tag">TinyLlama</span>
+                        <span class="tech-tag">Fine-tuning</span>
+                        <span class="tech-tag">Ollama</span>
+                        <span class="tech-tag">Python</span>
                     </div>
                 </div>
                 
                 <div class="project-card">
-                    <h3>Advanced RAG Systems</h3> 
-                    <p>Architecting sophisticated Retrieval-Augmented Generation (RAG) systems that fuse AI's analytical power with domain-specific knowledge bases, delivering precise and actionable financial insights.</p> 
+                    <h3>RAG Implementation with an Open Source LLM</h3>
+                    <p>Developed a tax assistant using Retrieval Augmented Generation (RAG) with a quantized Llama 3 8B model. This project involved leveraging LangChain for the pipeline, Sentence-Transformers for embeddings, and FAISS-CPU for the vector database. Key learnings included managing software dependencies, the critical importance of context for LLM accuracy, and troubleshooting minor output inconsistencies. This hands-on experience significantly enhanced my understanding of RAG and LLM fine-tuning, paving the way for future explorations with Vertex AI.</p>
                     <div class="tech-stack">
+                        <span class="tech-tag">Llama 3</span>
+                        <span class="tech-tag">RAG</span>
                         <span class="tech-tag">LangChain</span>
-                        <span class="tech-tag">Vector DBs</span>
-                        <span class="tech-tag">Embeddings</span>
+                        <span class="tech-tag">FAISS</span>
+                        <span class="tech-tag">Sentence-Transformers</span>
                     </div>
                 </div>
                 
                 <div class="project-card">
-                    <h3>Intelligent Accounting Automation</h3> 
-                    <p>Designing and deploying AI-driven automation for core accounting processes, from streamlined invoice management to automated tax computations, achieving over 70% reduction in manual effort.</p> 
+                    <h3>Automation with Python Scripts</h3>
+                    <p>Leveraging GPT-4 mini-high as my AI assistant, I created six Python scripts to automate accounting tasks that previously consumed a minimum of 5 hours of manual work. These scripts have drastically cut processing time to under 30 minutes, freeing up significant time for continued learning and innovation. Debugging was the most challenging phase, but with AI assistance, issues that could have taken hours were resolved much faster. I'm now focused on developing AI workflows and agents to fully automate most office tasks by year-end, aiming for substantial boosts in efficiency and cost reduction. My experience confirms that failing to embrace AI isn’t just missing out on innovation; it’s choosing to stand still while the world moves forward.</p>
                     <div class="tech-stack">
                         <span class="tech-tag">Python</span>
-                        <span class="tech-tag">OCR</span>
-                        <span class="tech-tag">ML Pipeline</span>
+                        <span class="tech-tag">Automation</span>
+                        <span class="tech-tag">AI Assistant (GPT-4)</span>
+                        <span class="tech-tag">Workflow Optimization</span>
                     </div>
                 </div>
                 
                 <div class="project-card">
-                    <h3>AI-Enhanced Tax Solutions</h3> 
-                    <p>Creating intelligent tax preparation and advisory tools that leverage AI for optimized deduction identification, enhanced compliance, and strategic tax planning.</p> 
+                    <h3>Exploring Transformer Models</h3>
+                    <p>To deepen my understanding of the models I work with, I've been creating visualizations to explore the inner workings of transformer architectures, often referencing explanations like those provided by Anthropic for Claude. My process involves breaking down the model step-by-step: Input text is first tokenized, with each token converted into a vector via token embeddings to capture contextual meaning. Positional embeddings are then added, assigning a unique position code to each token to help the model understand word order. These combined vectors flow into the self-attention mechanism, where each token assesses all others using query, key, and value vectors to gather rich contextual information and understand inter-word relationships. Following self-attention, each token's representation is refined through a feed-forward neural network (FFNN), which expands, transforms, and then compresses the vector. Critical components like residual connections and layer normalization are applied throughout to stabilize learning and improve performance. Visualizing these components helps solidify my grasp of how transformers comprehend language structure and meaning, making them so effective for tasks like translation, summarization, and text generation.</p>
                     <div class="tech-stack">
-                        <span class="tech-tag">NLP</span>
-                        <span class="tech-tag">Rules Engine</span>
-                        <span class="tech-tag">API Integration</span>
+                        <span class="tech-tag">Transformers</span>
+                        <span class="tech-tag">LLM Architecture</span>
+                        <span class="tech-tag">Data Visualization</span>
+                        <span class="tech-tag">Self-Attention</span>
+                         <span class="tech-tag">Embeddings</span>
                     </div>
                 </div>
             </div>
@@ -696,11 +702,11 @@
                         </svg>
                         LinkedIn
                     </a>
-                    <a href="https://github.com/carlopinto" class="contact-link" target="_blank" rel="noopener noreferrer">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    <a href="tel:+639175500799" class="contact-link">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
                         </svg>
-                        GitHub
+                        +63 917 550 0799
                     </a>
                 </div>
             </div>
@@ -724,26 +730,25 @@
             constructor() {
                 const centerX = canvasWidth / 2;
                 const centerY = canvasHeight / 2;
-                // MODIFIED: Brain shape to fill even more of the screen
-                const horizontalFocus = 0.98; // Closer to 1 for wider spread relative to height
-                const maxRadiusX = canvasWidth * 0.48 * horizontalFocus; // Approx 90-95% of width total
-                const maxRadiusY = canvasHeight * 0.46; // Approx 90-92% of height total
+                const horizontalFocus = 0.98; 
+                const maxRadiusX = canvasWidth * 0.48 * horizontalFocus; 
+                const maxRadiusY = canvasHeight * 0.46; 
 
                 let r, angle;
                 do { 
                     r = Math.sqrt(Math.random()); 
                     angle = Math.random() * 2 * Math.PI;
-                } while (r < 0.005); // Allow nodes very close to the center for core density
+                } while (r < 0.005); 
 
                 this.x = centerX + r * maxRadiusX * Math.cos(angle);
                 this.y = centerY + r * maxRadiusY * Math.sin(angle);
 
-                this.vx = (Math.random() - 0.5) * 0.07; // MODIFIED: Even slower, more subtle drift
+                this.vx = (Math.random() - 0.5) * 0.07; 
                 this.vy = (Math.random() - 0.5) * 0.07;
-                this.radius = Math.random() * 1.1 + 1.2; // MODIFIED: Very small nodes for fine texture
+                this.radius = Math.random() * 1.1 + 1.2; 
                 
                 this.isFiring = false;
-                this.fireCooldown = Math.random() * 130 + 40; // More frequent firing
+                this.fireCooldown = Math.random() * 130 + 40; 
                 this.fireDuration = 25; 
                 this.currentFireTime = 0;
 
@@ -757,7 +762,6 @@
                 
                 const centerX = canvasWidth / 2;
                 const centerY = canvasHeight / 2;
-                // MODIFIED: Expanded brain boundaries to almost full screen
                 const brainBoundaryX = canvasWidth * 0.49; 
                 const brainBoundaryY = canvasHeight * 0.48;
 
@@ -766,13 +770,13 @@
                 const distanceFromEllipseCenterSq = normalizedX * normalizedX + normalizedY * normalizedY;
 
                 if (distanceFromEllipseCenterSq > 1) { 
-                    this.vx -= normalizedX * 0.008; // Slightly stronger nudge
+                    this.vx -= normalizedX * 0.008; 
                     this.vy -= normalizedY * 0.008;
                     
-                    this.vx *= 0.92; // Stronger damping
+                    this.vx *= 0.92; 
                     this.vy *= 0.92;
 
-                    if (distanceFromEllipseCenterSq > 1.05) { // More aggressive pull-back
+                    if (distanceFromEllipseCenterSq > 1.05) { 
                         this.x = centerX + normalizedX * brainBoundaryX * 0.97; 
                         this.y = centerY + normalizedY * brainBoundaryY * 0.97;
                     }
@@ -787,7 +791,7 @@
                 } else {
                     this.fireCooldown--;
                     if (this.fireCooldown <= 0) {
-                        if (Math.random() < 0.05) { // Increased firing chance for visible activity in dense net
+                        if (Math.random() < 0.05) { 
                             this.isFiring = true;
                             this.currentFireTime = 0; 
                             this.fireCooldown = Math.random() * 180 + 80; 
@@ -803,7 +807,7 @@
                 if (this.isFiring) {
                     const fireProgress = this.currentFireTime / this.fireDuration;
                     const coreBrightness = 1 - Math.abs(fireProgress - 0.5) * 1.8;
-                    const haloAlpha = 0.05 + Math.sin(fireProgress * Math.PI) * 0.10; // Very faint halo
+                    const haloAlpha = 0.05 + Math.sin(fireProgress * Math.PI) * 0.10; 
 
                     gradient.addColorStop(0, `rgba(230, 255, 230, ${0.35 + coreBrightness * 0.15})`); 
                     gradient.addColorStop(0.4, `rgba(200, 240, 200, ${0.25 + coreBrightness * 0.1})`);
@@ -832,11 +836,10 @@
             canvasHeight = window.innerHeight;
             neuralBgCanvas.width = canvasWidth;
             neuralBgCanvas.height = canvasHeight;
-            // MODIFIED: Node count for a much denser, screen-filling brain
-            const brainEllipseArea = Math.PI * (canvasWidth * 0.48 * 0.98) * (canvasHeight * 0.46); // Area of the larger ellipse
-            const targetNodesPer10kPixels = 3.5; // Increased for more density
+            const brainEllipseArea = Math.PI * (canvasWidth * 0.48 * 0.98) * (canvasHeight * 0.46); 
+            const targetNodesPer10kPixels = 3.5; 
             numBackgroundNodes = Math.floor(brainEllipseArea / 10000 * targetNodesPer10kPixels);
-            numBackgroundNodes = Math.max(250, Math.min(500, numBackgroundNodes)); // Clamp between 250-500
+            numBackgroundNodes = Math.max(250, Math.min(500, numBackgroundNodes)); 
             
             for (let i = 0; i < numBackgroundNodes; i++) {
                  backgroundNodes.push(new BackgroundNode());
@@ -847,8 +850,7 @@
         function animateNeuralBackground() {
             ctx.clearRect(0, 0, canvasWidth, canvasHeight);
             
-            // MODIFIED: Connection distance for denser, larger brain
-            const connectionDistance = Math.min(65, canvasWidth / 15); // Shorter connections for high density
+            const connectionDistance = Math.min(65, canvasWidth / 15); 
             const pulseLength = 6; 
             const baseConnectionColorRGB = getComputedStyle(document.documentElement).getPropertyValue('--connection-fire-color-base').trim();
 
@@ -861,16 +863,14 @@
                     const distance = Math.sqrt(dx * dx + dy * dy);
                     
                     if (distance < connectionDistance) {
-                        // MODIFIED: Extremely faint base lines
-                        const baseLineAlpha = 0.05 - (distance / connectionDistance) * 0.045; // Max 0.05, fades to 0.005
+                        const baseLineAlpha = 0.05 - (distance / connectionDistance) * 0.045; 
                         ctx.beginPath();
                         ctx.moveTo(nodeA.x, nodeA.y);
                         ctx.lineTo(nodeB.x, nodeB.y);
-                        ctx.strokeStyle = `rgba(${baseConnectionColorRGB}, ${Math.max(0.001, baseLineAlpha)})`; // Min alpha 0.001
-                        ctx.lineWidth = 0.1; // MODIFIED: Extremely thin base lines
+                        ctx.strokeStyle = `rgba(${baseConnectionColorRGB}, ${Math.max(0.001, baseLineAlpha)})`; 
+                        ctx.lineWidth = 0.1; 
                         ctx.stroke();
 
-                        // Draw pulse if nodeA is firing towards nodeB
                         if (nodeA.isFiring && nodeA.currentFireTime > 0) {
                             const fireProgress = nodeA.currentFireTime / nodeA.fireDuration;
                             
@@ -884,14 +884,12 @@
                                 ctx.beginPath();
                                 ctx.moveTo(pulseStartX, pulseStartY);
                                 ctx.lineTo(pulseEndX, pulseEndY);
-                                // MODIFIED: Very faint pale green pulse
                                 ctx.strokeStyle = `rgba(180, 230, 180, 0.20)`; 
-                                ctx.lineWidth = 0.7; // MODIFIED: Thinner pulse
+                                ctx.lineWidth = 0.7; 
                                 ctx.lineCap = 'round';
                                 ctx.stroke();
                             }
                         }
-                        // Draw pulse if nodeB is firing towards nodeA
                         else if (nodeB.isFiring && nodeB.currentFireTime > 0) {
                             const fireProgress = nodeB.currentFireTime / nodeB.fireDuration;
 
@@ -905,9 +903,8 @@
                                 ctx.beginPath();
                                 ctx.moveTo(pulseStartX, pulseStartY);
                                 ctx.lineTo(pulseEndX, pulseEndY);
-                                // MODIFIED: Very faint pale green pulse
                                 ctx.strokeStyle = `rgba(180, 230, 180, 0.20)`;
-                                ctx.lineWidth = 0.7; // MODIFIED: Thinner pulse
+                                ctx.lineWidth = 0.7; 
                                 ctx.lineCap = 'round';
                                 ctx.stroke();
                             }
@@ -939,40 +936,35 @@
                 const isExpanded = mobileNavToggle.getAttribute('aria-expanded') === 'true' || false;
                 mobileNavToggle.setAttribute('aria-expanded', !isExpanded);
                 mobileMenu.classList.toggle('active');
-                // Optional: Toggle body overflow to prevent scrolling when menu is open
-                // document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
             });
 
             closeBtn.addEventListener('click', () => {
                 mobileNavToggle.setAttribute('aria-expanded', 'false');
                 mobileMenu.classList.remove('active');
-                // document.body.style.overflow = '';
             });
 
             mobileNavLinks.forEach(link => {
                 link.addEventListener('click', () => {
                     const sectionId = link.getAttribute('href');
-                    scrollToSection(sectionId.substring(1)); // Remove # for function
+                    scrollToSection(sectionId.substring(1)); 
                     mobileNavToggle.setAttribute('aria-expanded', 'false');
                     mobileMenu.classList.remove('active');
-                    // document.body.style.overflow = '';
                 });
             });
         }
 
-        // Scroll to section function (ensure it's globally accessible if needed, or pass as callback)
         window.scrollToSection = function(sectionId) { 
             const sectionElement = document.getElementById(sectionId);
             if (sectionElement) {
                 sectionElement.scrollIntoView({ behavior: 'smooth' });
-                updateActiveNavNode(sectionId); // For desktop nav
-                updateActiveMobileLink(sectionId); // For mobile nav
+                updateActiveNavNode(sectionId); 
+                updateActiveMobileLink(sectionId); 
             }
         }
         
-        const desktopNavNodes = document.querySelectorAll('.neural-nav .node'); // Renamed for clarity
+        const desktopNavNodes = document.querySelectorAll('.neural-nav .node'); 
 
-        function updateActiveNavNode(activeSectionId) { // For desktop
+        function updateActiveNavNode(activeSectionId) { 
             desktopNavNodes.forEach(node => {
                 const sectionIdForNode = node.getAttribute('onclick').match(/'([^']+)'/)[1];
                 if (sectionIdForNode === activeSectionId) {
@@ -983,7 +975,7 @@
             });
         }
         
-        function updateActiveMobileLink(activeSectionId) { // For mobile
+        function updateActiveMobileLink(activeSectionId) { 
             mobileNavLinks.forEach(link => {
                 if (link.getAttribute('href') === `#${activeSectionId}`) {
                     link.classList.add('active-link');
@@ -1015,10 +1007,10 @@
             }
         });
 
-        const desktopNeuralNav = document.querySelector('.neural-nav'); // Renamed for clarity
+        const desktopNeuralNav = document.querySelector('.neural-nav'); 
         const desktopNavNodeElements = Array.from(desktopNeuralNav.querySelectorAll('.node'));
 
-        function drawDesktopNavConnections() { // Renamed for clarity
+        function drawDesktopNavConnections() { 
             if (!desktopNeuralNav) return; 
             desktopNeuralNav.querySelectorAll('.neural-connection').forEach(conn => conn.remove());
 
