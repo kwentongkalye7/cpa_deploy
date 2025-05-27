@@ -20,9 +20,9 @@
             --accent-green: #52d3aa;
             --accent-purple: #8b7ff7;
             --node-glow: #4a9eff;
-            --neuron-fire-halo: rgba(200, 230, 200, 0.2); 
-            --neuron-fire-core: rgba(230, 255, 230, 0.9); 
-            --connection-fire-color-base: "173, 216, 173"; 
+            --neuron-fire-halo: rgba(200, 230, 200, 0.2);
+            --neuron-fire-core: rgba(230, 255, 230, 0.9);
+            --connection-fire-color-base: "173, 216, 173";
         }
 
         body {
@@ -40,7 +40,7 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.65; 
+            opacity: 0.65;
         }
 
         /* Desktop Navigation */
@@ -74,7 +74,7 @@
         .neural-nav .node::after {
             content: attr(data-label);
             position: absolute;
-            right: 80px; 
+            right: 80px;
             top: 50%;
             transform: translateY(-50%);
             background: rgba(0, 0, 0, 0.8);
@@ -82,15 +82,15 @@
             border-radius: 20px;
             white-space: nowrap;
             opacity: 0;
-            transition: opacity 0.3s ease, transform 0.3s ease; 
+            transition: opacity 0.3s ease, transform 0.3s ease;
             font-size: 14px;
             border: 1px solid var(--accent-blue);
-            pointer-events: none; 
+            pointer-events: none;
         }
 
         .neural-nav .node:hover::after {
             opacity: 1;
-            transform: translateY(-50%) translateX(-10px); 
+            transform: translateY(-50%) translateX(-10px);
         }
 
         .neural-nav .node-core { /* Added specificity */
@@ -198,23 +198,23 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 80px 20px; 
+            padding: 80px 20px;
             position: relative;
-            box-sizing: border-box; 
+            box-sizing: border-box;
         }
 
         .container {
             max-width: 1200px;
             width: 100%;
             margin: 0 auto;
-            padding: 0 15px; 
-            text-align: center; 
+            padding: 0 15px;
+            text-align: center;
         }
-        
+
         h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem); 
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
             font-weight: 800;
-            margin-bottom: 15px; 
+            margin-bottom: 15px;
             background: linear-gradient(135deg, #6b9fff, #a890fe);
             -webkit-background-clip: text;
             background-clip: text;
@@ -223,195 +223,195 @@
         }
 
         h2 {
-            font-size: clamp(2rem, 5vw, 3.5rem); 
+            font-size: clamp(2rem, 5vw, 3.5rem);
             font-weight: 700;
-            margin-bottom: 40px; 
+            margin-bottom: 40px;
             color: #e8e8e8;
             text-align: center;
         }
 
         h3 {
-            font-size: clamp(1.4rem, 3vw, 1.8rem); 
+            font-size: clamp(1.4rem, 3vw, 1.8rem);
             font-weight: 600;
             margin: 25px 0 15px;
-            color: var(--accent-blue); 
+            color: var(--accent-blue);
         }
 
-        p { 
-            font-size: clamp(1rem, 2.5vw, 1.15rem); 
+        p {
+            font-size: clamp(1rem, 2.5vw, 1.15rem);
             line-height: 1.8;
-            margin-bottom: 25px; 
+            margin-bottom: 25px;
             color: var(--text-secondary);
-            max-width: 700px; 
-            margin-left: auto; 
+            max-width: 700px;
+            margin-left: auto;
             margin-right: auto;
-            text-align: left; 
+            text-align: left;
         }
 
         #home {
-             background: radial-gradient(ellipse at center, rgba(0, 217, 255, 0.1) 0%, transparent 60%); 
+             background: radial-gradient(ellipse at center, rgba(0, 217, 255, 0.1) 0%, transparent 60%);
         }
 
         .hero-content {
-            text-align: center; 
-            animation: fadeInUp 1s ease forwards; 
+            text-align: center;
+            animation: fadeInUp 1s ease forwards;
         }
-        
-        .hero-content p { 
-            text-align: center; 
+
+        .hero-content p {
+            text-align: center;
         }
-        
+
         .cp-logo {
-            font-size: clamp(2.5rem, 5vw, 3.5rem); 
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
             font-weight: 700;
-            color: var(--accent-green); 
+            color: var(--accent-green);
             border: 2px solid var(--accent-green);
             padding: 10px 20px;
-            border-radius: 12px; 
-            display: inline-block; 
-            margin-bottom: 25px; 
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 25px;
             letter-spacing: 1px;
-            text-shadow: 0 0 10px rgba(82, 211, 170, 0.5); 
+            text-shadow: 0 0 10px rgba(82, 211, 170, 0.5);
         }
 
 
         .tagline {
-            font-size: clamp(1.2rem, 3vw, 1.5rem); 
-            color: #7db8e8; 
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            color: #7db8e8;
             margin-bottom: 40px;
             font-weight: 500;
-            text-align: center; 
+            text-align: center;
         }
 
         .timeline {
             position: relative;
             padding: 40px 0;
-            max-width: 800px; 
-            margin: 0 auto; 
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .timeline-item {
-            margin-bottom: 50px; 
-            padding-left: 70px; 
+            margin-bottom: 50px;
+            padding-left: 70px;
             position: relative;
-            animation: fadeInLeft 0.8s ease forwards; 
-            text-align: left; 
+            animation: fadeInLeft 0.8s ease forwards;
+            text-align: left;
         }
-        
+
         .timeline-item:last-child {
             margin-bottom: 0;
         }
 
-        .timeline-item::before { 
+        .timeline-item::before {
             content: '';
             position: absolute;
-            left: 20px; 
-            top: 8px; 
-            width: 20px; 
+            left: 20px;
+            top: 8px;
+            width: 20px;
             height: 20px;
             background: var(--accent-blue);
             border-radius: 50%;
-            box-shadow: 0 0 25px var(--accent-blue); 
+            box-shadow: 0 0 25px var(--accent-blue);
             z-index: 1;
         }
 
-        .timeline-item::after { 
+        .timeline-item::after {
             content: '';
             position: absolute;
-            left: 29px; 
-            top: 28px; 
-            width: 3px; 
-            height: calc(100% + 22px); 
+            left: 29px;
+            top: 28px;
+            width: 3px;
+            height: calc(100% + 22px);
             background: linear-gradient(to bottom, var(--accent-blue), transparent);
             z-index: 0;
         }
-        
+
         .timeline-item:last-child::after {
-            display: none; 
+            display: none;
         }
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
-            gap: 35px; 
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 35px;
             margin-top: 40px;
         }
 
         .project-card {
-            background: rgba(26, 26, 46, 0.7); 
-            border: 1px solid rgba(74, 158, 255, 0.4); 
-            border-radius: 20px; 
-            padding: 35px; 
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            backdrop-filter: blur(8px); 
-            text-align: left; 
+            background: rgba(26, 26, 46, 0.7);
+            border: 1px solid rgba(74, 158, 255, 0.4);
+            border-radius: 20px;
+            padding: 35px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(8px);
+            text-align: left;
         }
 
         .project-card:hover {
-            transform: translateY(-10px) scale(1.03); 
+            transform: translateY(-10px) scale(1.03);
             border-color: var(--accent-green);
-            box-shadow: 0 15px 35px rgba(82, 211, 170, 0.3); 
+            box-shadow: 0 15px 35px rgba(82, 211, 170, 0.3);
         }
-        
+
         .project-card h3 {
-            margin-top: 0; 
+            margin-top: 0;
         }
 
         .tech-stack {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px; 
-            margin-top: 20px; 
+            gap: 12px;
+            margin-top: 20px;
         }
 
         .tech-tag {
-            background: rgba(74, 158, 255, 0.2); 
+            background: rgba(74, 158, 255, 0.2);
             border: 1px solid #5a7fa6;
-            padding: 8px 18px; 
-            border-radius: 25px; 
-            font-size: 0.95rem; 
-            color: #d0e0f0; 
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            color: #d0e0f0;
             font-weight: 500;
         }
 
         .contact-content {
             text-align: center;
-            max-width: 650px; 
+            max-width: 650px;
             margin: 0 auto;
         }
 
         .contact-links {
             display: flex;
             justify-content: center;
-            gap: 25px; 
-            margin-top: 45px; 
-            flex-wrap: wrap; 
+            gap: 25px;
+            margin-top: 45px;
+            flex-wrap: wrap;
         }
 
         .contact-link {
             display: inline-flex;
             align-items: center;
-            gap: 12px; 
-            padding: 18px 35px; 
-            background: rgba(74, 158, 255, 0.15); 
+            gap: 12px;
+            padding: 18px 35px;
+            background: rgba(74, 158, 255, 0.15);
             border: 2px solid var(--accent-blue);
             border-radius: 30px;
             text-decoration: none;
             color: var(--text-primary);
-            font-weight: 500; 
+            font-weight: 500;
             transition: all 0.3s ease;
         }
-        
+
         .contact-link svg {
-            width: 22px; 
+            width: 22px;
             height: 22px;
         }
 
         .contact-link:hover {
             background: var(--accent-blue);
             color: var(--bg-primary);
-            transform: translateY(-5px) scale(1.05); 
-            box-shadow: 0 12px 30px rgba(74, 158, 255, 0.6); 
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(74, 158, 255, 0.6);
         }
 
         @keyframes fadeInUp {
@@ -436,11 +436,11 @@
             }
         }
 
-        @media (max-width: 992px) { 
+        @media (max-width: 992px) {
             .neural-nav {
-                display: none; 
+                display: none;
             }
-            .mobile-nav-toggle { 
+            .mobile-nav-toggle {
                 display: block;
             }
              h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); }
@@ -450,31 +450,31 @@
 
         @media (max-width: 768px) {
             section {
-                padding: 60px 15px; 
-                min-height: auto; 
+                padding: 60px 15px;
+                min-height: auto;
             }
 
             .container {
                 padding: 0 10px;
             }
-            
+
             h1 { font-size: clamp(2rem, 8vw, 3rem); }
             h2 { font-size: clamp(1.6rem, 6vw, 2.5rem); }
             p { font-size: clamp(0.95rem, 4vw, 1.1rem); }
 
 
             .projects-grid {
-                grid-template-columns: 1fr; 
+                grid-template-columns: 1fr;
                 gap: 25px;
             }
-            
+
             .project-card {
                 padding: 25px;
             }
 
             .contact-links {
                 flex-direction: column;
-                align-items: stretch; 
+                align-items: stretch;
                 gap: 20px;
             }
             .contact-link {
@@ -490,10 +490,10 @@
                 height: 15px;
             }
             .timeline-item::after {
-                left: 16px; 
+                left: 16px;
             }
         }
-        
+
         @media (max-width: 480px) {
             h1 { font-size: clamp(1.8rem, 10vw, 2.5rem); }
             h2 { font-size: clamp(1.4rem, 8vw, 2rem); }
@@ -559,27 +559,27 @@
         <div class="container">
             <div class="hero-content">
                 <div class="cp-logo">CP</div> <h1>Carlo Pinto</h1>
-                <p class="tagline">CPA | AI Practitioner</p> 
-                <p>As a Certified Public Accountant and AI Practitioner, I bridge the crucial gap between traditional finance and transformative artificial intelligence. My mission is to empower businesses by revolutionizing accounting and operational workflows with intelligent automation, unlocking new levels of efficiency and insight.</p> 
+                <p class="tagline">CPA | AI Practitioner</p>
+                <p>As a Certified Public Accountant and AI Practitioner, I bridge the crucial gap between traditional finance and transformative artificial intelligence. My mission is to empower businesses by revolutionizing accounting and operational workflows with intelligent automation, unlocking new levels of efficiency and insight.</p>
             </div>
         </div>
     </section>
 
     <section id="background">
         <div class="container">
-            <h2>My Professional Journey</h2> 
+            <h2>My Professional Journey</h2>
             <div class="timeline">
                 <div class="timeline-item">
                     <h3>Certified Public Accountant</h3>
-                    <p>Licensed CPA with a proven track record in financial reporting, auditing, and tax strategy across diverse industries. Successfully led teams to implement best practices and ensure robust regulatory compliance.</p> 
+                    <p>Licensed CPA with a proven track record in financial reporting, auditing, and tax strategy across diverse industries. Successfully led teams to implement best practices and ensure robust regulatory compliance.</p>
                 </div>
                 <div class="timeline-item">
                     <h3>Educator & Mentor</h3>
-                    <p>Passionate former accounting educator dedicated to demystifying complex financial concepts and fostering professional growth. Mentored numerous aspiring CPAs, guiding them to certification success.</p> 
+                    <p>Passionate former accounting educator dedicated to demystifying complex financial concepts and fostering professional growth. Mentored numerous aspiring CPAs, guiding them to certification success.</p>
                 </div>
                 <div class="timeline-item">
                     <h3>Leadership in Innovation</h3>
-                    <p>Championed digital transformation within traditional accounting environments, spearheading initiatives that integrated automation and modernized workflows, resulting in efficiency gains exceeding 40%.</p> 
+                    <p>Championed digital transformation within traditional accounting environments, spearheading initiatives that integrated automation and modernized workflows, resulting in efficiency gains exceeding 40%.</p>
                 </div>
             </div>
         </div>
@@ -587,8 +587,8 @@
 
     <section id="ai-journey">
         <div class="container">
-            <h2>Pioneering AI in Finance</h2> 
-            <p>My evolution into AI is driven by a commitment to pioneering innovation within professional services. I focus on developing and implementing AI solutions that address real-world financial challenges and create tangible value.</p> 
+            <h2>Pioneering AI in Finance</h2>
+            <p>My evolution into AI is driven by a commitment to pioneering innovation within professional services. I focus on developing and implementing AI solutions that address real-world financial challenges and create tangible value.</p>
             <div class="projects-grid">
                 <div class="project-card">
                     <h3>Self-hosting and Fine-tuning LLMs</h3>
@@ -601,7 +601,7 @@
                         <span class="tech-tag">Python</span>
                     </div>
                 </div>
-                
+
                 <div class="project-card">
                     <h3>RAG Implementation with an Open Source LLM</h3>
                     <p>Developed a tax assistant using Retrieval Augmented Generation (RAG) with a quantized Llama 3 8B model. This project involved leveraging LangChain for the pipeline, Sentence-Transformers for embeddings, and FAISS-CPU for the vector database. Key learnings included managing software dependencies, the critical importance of context for LLM accuracy, and troubleshooting minor output inconsistencies. This hands-on experience significantly enhanced my understanding of RAG and LLM fine-tuning, paving the way for future explorations with Vertex AI.</p>
@@ -613,7 +613,7 @@
                         <span class="tech-tag">Sentence-Transformers</span>
                     </div>
                 </div>
-                
+
                 <div class="project-card">
                     <h3>Automation with Python Scripts</h3>
                     <p>Leveraging GPT-4 mini-high as my AI assistant, I created six Python scripts to automate accounting tasks that previously consumed a minimum of 5 hours of manual work. These scripts have drastically cut processing time to under 30 minutes, freeing up significant time for continued learning and innovation. Debugging was the most challenging phase, but with AI assistance, issues that could have taken hours were resolved much faster. I'm now focused on developing AI workflows and agents to fully automate most office tasks by year-end, aiming for substantial boosts in efficiency and cost reduction. My experience confirms that failing to embrace AI isn’t just missing out on innovation; it’s choosing to stand still while the world moves forward.</p>
@@ -624,7 +624,7 @@
                         <span class="tech-tag">Workflow Optimization</span>
                     </div>
                 </div>
-                
+
                 <div class="project-card">
                     <h3>Exploring Transformer Models</h3>
                     <p>To deepen my understanding of the models I work with, I've been creating visualizations to explore the inner workings of transformer architectures, often referencing explanations like those provided by Anthropic for Claude. My process involves breaking down the model step-by-step: Input text is first tokenized, with each token converted into a vector via token embeddings to capture contextual meaning. Positional embeddings are then added, assigning a unique position code to each token to help the model understand word order. These combined vectors flow into the self-attention mechanism, where each token assesses all others using query, key, and value vectors to gather rich contextual information and understand inter-word relationships. Following self-attention, each token's representation is refined through a feed-forward neural network (FFNN), which expands, transforms, and then compresses the vector. Critical components like residual connections and layer normalization are applied throughout to stabilize learning and improve performance. Visualizing these components helps solidify my grasp of how transformers comprehend language structure and meaning, making them so effective for tasks like translation, summarization, and text generation.</p>
@@ -643,8 +643,8 @@
     <section id="contact">
         <div class="container">
             <div class="contact-content">
-                <h2>Collaborate & Innovate</h2> 
-                <p>I am eager to explore AI's potential in finance, collaborate on groundbreaking projects, or assist your organization in navigating the future of accounting. Let's connect and discuss the possibilities.</p> 
+                <h2>Collaborate & Innovate</h2>
+                <p>I am eager to explore AI's potential in finance, collaborate on groundbreaking projects, or assist your organization in navigating the future of accounting. Let's connect and discuss the possibilities.</p>
                 <div class="contact-links">
                     <a href="mailto:hello@carlopinto.pro" class="contact-link">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -674,67 +674,67 @@
     document.addEventListener('DOMContentLoaded', () => {
         const neuralBgCanvas = document.getElementById('neural-bg');
         const ctx = neuralBgCanvas.getContext('2d');
-        
+
         let canvasWidth = window.innerWidth;
         let canvasHeight = window.innerHeight;
         neuralBgCanvas.width = canvasWidth;
         neuralBgCanvas.height = canvasHeight;
-        
+
         const backgroundNodes = [];
-        let numBackgroundNodes; 
-        
+        let numBackgroundNodes;
+
         class BackgroundNode {
             constructor() {
                 const centerX = canvasWidth / 2;
                 const centerY = canvasHeight / 2;
-                const horizontalFocus = 0.98; 
-                const maxRadiusX = canvasWidth * 0.48 * horizontalFocus; 
-                const maxRadiusY = canvasHeight * 0.46; 
+                const horizontalFocus = 0.98;
+                const maxRadiusX = canvasWidth * 0.48 * horizontalFocus;
+                const maxRadiusY = canvasHeight * 0.46;
 
                 let r, angle;
-                do { 
-                    r = Math.sqrt(Math.random()); 
+                do {
+                    r = Math.sqrt(Math.random());
                     angle = Math.random() * 2 * Math.PI;
-                } while (r < 0.005); 
+                } while (r < 0.005);
 
                 this.x = centerX + r * maxRadiusX * Math.cos(angle);
                 this.y = centerY + r * maxRadiusY * Math.sin(angle);
 
-                this.vx = (Math.random() - 0.5) * 0.07; 
+                this.vx = (Math.random() - 0.5) * 0.07;
                 this.vy = (Math.random() - 0.5) * 0.07;
-                this.radius = Math.random() * 1.1 + 1.2; 
-                
+                this.radius = Math.random() * 1.1 + 1.2;
+
                 this.isFiring = false;
-                this.fireCooldown = Math.random() * 130 + 40; 
-                this.fireDuration = 25; 
+                this.fireCooldown = Math.random() * 130 + 40;
+                this.fireDuration = 25;
                 this.currentFireTime = 0;
 
-                this.baseColorOuter = `rgba(173, 216, 173, 0.25)`; 
-                this.baseColorInner = `rgba(200, 230, 200, 0.50)`; 
+                this.baseColorOuter = `rgba(173, 216, 173, 0.25)`;
+                this.baseColorInner = `rgba(200, 230, 200, 0.50)`;
             }
-            
+
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
-                
+
                 const centerX = canvasWidth / 2;
                 const centerY = canvasHeight / 2;
-                const brainBoundaryX = canvasWidth * 0.49; 
+                const brainBoundaryX = canvasWidth * 0.49;
                 const brainBoundaryY = canvasHeight * 0.48;
 
                 const normalizedX = (this.x - centerX) / brainBoundaryX;
                 const normalizedY = (this.y - centerY) / brainBoundaryY;
                 const distanceFromEllipseCenterSq = normalizedX * normalizedX + normalizedY * normalizedY;
 
-                if (distanceFromEllipseCenterSq > 1) { 
-                    this.vx -= normalizedX * 0.008; 
+                if (distanceFromEllipseCenterSq > 1) {
+                    this.vx -= normalizedX * 0.008;
                     this.vy -= normalizedY * 0.008;
-                    
-                    this.vx *= 0.92; 
+
+                    this.vx *= 0.92;
                     this.vy *= 0.92;
 
-                    if (distanceFromEllipseCenterSq > 1.05) { 
-                        this.x = centerX + normalizedX * brainBoundaryX * 0.97; 
+                    if (distanceFromEllipseCenterSq > 1.05) {
+                        this.x = centerX + normalizedX * brainBoundaryX * 0.97;
                         this.y = centerY + normalizedY * brainBoundaryY * 0.97;
                     }
                 }
@@ -748,36 +748,36 @@
                 } else {
                     this.fireCooldown--;
                     if (this.fireCooldown <= 0) {
-                        if (Math.random() < 0.05) { 
+                        if (Math.random() < 0.05) {
                             this.isFiring = true;
-                            this.currentFireTime = 0; 
-                            this.fireCooldown = Math.random() * 180 + 80; 
+                            this.currentFireTime = 0;
+                            this.fireCooldown = Math.random() * 180 + 80;
                         } else {
-                            this.fireCooldown = Math.random() * 12 + 2; 
+                            this.fireCooldown = Math.random() * 12 + 2;
                         }
                     }
                 }
             }
-            
+
             draw() {
                 const gradient = ctx.createRadialGradient(this.x, this.y, this.radius * 0.2, this.x, this.y, this.radius);
                 if (this.isFiring) {
                     const fireProgress = this.currentFireTime / this.fireDuration;
                     const coreBrightness = 1 - Math.abs(fireProgress - 0.5) * 1.8;
-                    const haloAlpha = 0.05 + Math.sin(fireProgress * Math.PI) * 0.10; 
+                    const haloAlpha = 0.05 + Math.sin(fireProgress * Math.PI) * 0.10;
 
-                    gradient.addColorStop(0, `rgba(230, 255, 230, ${0.35 + coreBrightness * 0.15})`); 
+                    gradient.addColorStop(0, `rgba(230, 255, 230, ${0.35 + coreBrightness * 0.15})`);
                     gradient.addColorStop(0.4, `rgba(200, 240, 200, ${0.25 + coreBrightness * 0.1})`);
                     gradient.addColorStop(1, `rgba(173, 216, 173, 0.15)`);
-                    
+
                     ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.radius + 0.6 + Math.sin(fireProgress * Math.PI) * 1.0, 0, Math.PI * 2); 
+                    ctx.arc(this.x, this.y, this.radius + 0.6 + Math.sin(fireProgress * Math.PI) * 1.0, 0, Math.PI * 2);
                     ctx.fillStyle = `rgba(200, 230, 200, ${haloAlpha})`;
                     ctx.fill();
 
                 } else {
-                    gradient.addColorStop(0, this.baseColorInner); 
-                    gradient.addColorStop(1, this.baseColorOuter);   
+                    gradient.addColorStop(0, this.baseColorInner);
+                    gradient.addColorStop(1, this.baseColorOuter);
                 }
                 ctx.fillStyle = gradient;
 
@@ -786,29 +786,32 @@
                 ctx.fill();
             }
         }
-        
+
         function initializeNodes() {
-            backgroundNodes.length = 0; 
-            canvasWidth = Math.max(1, window.innerWidth); // MODIFIED: Ensure canvasWidth is at least 1
-            canvasHeight = Math.max(1, window.innerHeight); // MODIFIED: Ensure canvasHeight is at least 1
+            backgroundNodes.length = 0;
+            canvasWidth = Math.max(1, window.innerWidth); // Ensure canvasWidth is at least 1
+            canvasHeight = Math.max(1, window.innerHeight); // Ensure canvasHeight is at least 1
             neuralBgCanvas.width = canvasWidth;
             neuralBgCanvas.height = canvasHeight;
-            const brainEllipseArea = Math.PI * (canvasWidth * 0.48 * 0.98) * (canvasHeight * 0.46); 
-            const targetNodesPer10kPixels = 3.5; 
+            const brainEllipseArea = Math.PI * (canvasWidth * 0.48 * 0.98) * (canvasHeight * 0.46);
+            // MODIFIED: Increased targetNodesPer10kPixels for denser background
+            const targetNodesPer10kPixels = 5.5;
             numBackgroundNodes = Math.floor(brainEllipseArea / 10000 * targetNodesPer10kPixels);
-            numBackgroundNodes = Math.max(250, Math.min(500, numBackgroundNodes)); 
-            
+            // MODIFIED: Adjusted min/max node counts slightly to accommodate higher density
+            numBackgroundNodes = Math.max(350, Math.min(700, numBackgroundNodes));
+
+
             for (let i = 0; i < numBackgroundNodes; i++) {
                  backgroundNodes.push(new BackgroundNode());
             }
         }
         initializeNodes();
-        
+
         function animateNeuralBackground() {
             ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-            
-            const connectionDistance = Math.min(65, canvasWidth / 15); 
-            const pulseLength = 6; 
+
+            const connectionDistance = Math.min(65, canvasWidth / 15);
+            const pulseLength = 6;
             const baseConnectionColorRGB = getComputedStyle(document.documentElement).getPropertyValue('--connection-fire-color-base').trim();
 
             for (let i = 0; i < backgroundNodes.length; i++) {
@@ -818,31 +821,31 @@
                     const dx = nodeA.x - nodeB.x;
                     const dy = nodeA.y - nodeB.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
-                    
+
                     if (distance < connectionDistance) {
-                        const baseLineAlpha = 0.05 - (distance / connectionDistance) * 0.045; 
+                        const baseLineAlpha = 0.05 - (distance / connectionDistance) * 0.045;
                         ctx.beginPath();
                         ctx.moveTo(nodeA.x, nodeA.y);
                         ctx.lineTo(nodeB.x, nodeB.y);
-                        ctx.strokeStyle = `rgba(${baseConnectionColorRGB}, ${Math.max(0.001, baseLineAlpha)})`; 
-                        ctx.lineWidth = 0.1; 
+                        ctx.strokeStyle = `rgba(${baseConnectionColorRGB}, ${Math.max(0.001, baseLineAlpha)})`;
+                        ctx.lineWidth = 0.1;
                         ctx.stroke();
 
                         if (nodeA.isFiring && nodeA.currentFireTime > 0) {
                             const fireProgress = nodeA.currentFireTime / nodeA.fireDuration;
-                            
+
                             const pulseStartX = nodeA.x - dx * fireProgress;
                             const pulseStartY = nodeA.y - dy * fireProgress;
-                            
+
                             const pulseEndX = nodeA.x - dx * (fireProgress - pulseLength / distance);
                             const pulseEndY = nodeA.y - dy * (fireProgress - pulseLength / distance);
 
-                            if (distance > pulseLength) { 
+                            if (distance > pulseLength) {
                                 ctx.beginPath();
                                 ctx.moveTo(pulseStartX, pulseStartY);
                                 ctx.lineTo(pulseEndX, pulseEndY);
-                                ctx.strokeStyle = `rgba(180, 230, 180, 0.20)`; 
-                                ctx.lineWidth = 0.7; 
+                                ctx.strokeStyle = `rgba(180, 230, 180, 0.20)`;
+                                ctx.lineWidth = 0.7;
                                 ctx.lineCap = 'round';
                                 ctx.stroke();
                             }
@@ -855,13 +858,13 @@
 
                             const pulseEndX = nodeB.x + dx * (fireProgress - pulseLength / distance);
                             const pulseEndY = nodeB.y + dy * (fireProgress - pulseLength / distance);
-                            
+
                             if (distance > pulseLength) {
                                 ctx.beginPath();
                                 ctx.moveTo(pulseStartX, pulseStartY);
                                 ctx.lineTo(pulseEndX, pulseEndY);
                                 ctx.strokeStyle = `rgba(180, 230, 180, 0.20)`;
-                                ctx.lineWidth = 0.7; 
+                                ctx.lineWidth = 0.7;
                                 ctx.lineCap = 'round';
                                 ctx.stroke();
                             }
@@ -869,19 +872,19 @@
                     }
                 }
             }
-            
+
             backgroundNodes.forEach(node => {
                 node.update();
                 node.draw();
             });
-            
+
             requestAnimationFrame(animateNeuralBackground);
         }
-        
-        animateNeuralBackground(); 
-        
+
+        animateNeuralBackground();
+
         window.addEventListener('resize', initializeNodes);
-        
+
         // --- Mobile Navigation Script ---
         const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
         const mobileMenu = document.getElementById('mobileMenu');
@@ -903,25 +906,25 @@
             mobileNavLinks.forEach(link => {
                 link.addEventListener('click', () => {
                     const sectionId = link.getAttribute('href');
-                    scrollToSection(sectionId.substring(1)); 
+                    scrollToSection(sectionId.substring(1));
                     mobileNavToggle.setAttribute('aria-expanded', 'false');
                     mobileMenu.classList.remove('active');
                 });
             });
         }
 
-        window.scrollToSection = function(sectionId) { 
+        window.scrollToSection = function(sectionId) {
             const sectionElement = document.getElementById(sectionId);
             if (sectionElement) {
                 sectionElement.scrollIntoView({ behavior: 'smooth' });
-                updateActiveNavNode(sectionId); 
-                updateActiveMobileLink(sectionId); 
+                updateActiveNavNode(sectionId);
+                updateActiveMobileLink(sectionId);
             }
         }
-        
-        const desktopNavNodes = document.querySelectorAll('.neural-nav .node'); 
 
-        function updateActiveNavNode(activeSectionId) { 
+        const desktopNavNodes = document.querySelectorAll('.neural-nav .node');
+
+        function updateActiveNavNode(activeSectionId) {
             desktopNavNodes.forEach(node => {
                 const sectionIdForNode = node.getAttribute('onclick').match(/'([^']+)'/)[1];
                 if (sectionIdForNode === activeSectionId) {
@@ -931,8 +934,8 @@
                 }
             });
         }
-        
-        function updateActiveMobileLink(activeSectionId) { 
+
+        function updateActiveMobileLink(activeSectionId) {
             mobileNavLinks.forEach(link => {
                 if (link.getAttribute('href') === `#${activeSectionId}`) {
                     link.classList.add('active-link');
@@ -941,14 +944,14 @@
                 }
             });
         }
-        
-        const sections = document.querySelectorAll('section[id]'); 
+
+        const sections = document.querySelectorAll('section[id]');
         const observerOptions = {
-            root: null, 
-            rootMargin: '0px', 
-            threshold: 0.5 
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5
         };
-        
+
         const intersectionObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -957,49 +960,49 @@
                 }
             });
         }, observerOptions);
-        
+
         sections.forEach(section => {
-            if (section) { 
+            if (section) {
                 intersectionObserver.observe(section);
             }
         });
 
-        const desktopNeuralNav = document.querySelector('.neural-nav'); 
+        const desktopNeuralNav = document.querySelector('.neural-nav');
         const desktopNavNodeElements = Array.from(desktopNeuralNav.querySelectorAll('.node'));
 
-        function drawDesktopNavConnections() { 
-            if (!desktopNeuralNav) return; 
+        function drawDesktopNavConnections() {
+            if (!desktopNeuralNav) return;
             desktopNeuralNav.querySelectorAll('.neural-connection').forEach(conn => conn.remove());
 
             for (let i = 0; i < desktopNavNodeElements.length - 1; i++) {
                 const node1 = desktopNavNodeElements[i];
                 const node2 = desktopNavNodeElements[i+1];
 
-                if (!node1 || !node2) continue; 
+                if (!node1 || !node2) continue;
 
                 const conn = document.createElement('div');
                 conn.className = 'neural-connection';
-                
+
                 const rect1 = node1.getBoundingClientRect();
                 const rect2 = node2.getBoundingClientRect();
                 const navRect = desktopNeuralNav.getBoundingClientRect();
 
+                // Calculate the center of the node relative to the nav container
                 const top1_relative = rect1.top - navRect.top + (rect1.height / 2);
                 const top2_relative = rect2.top - navRect.top + (rect2.height / 2);
-                
+
                 conn.style.top = `${Math.min(top1_relative, top2_relative)}px`;
                 conn.style.height = `${Math.abs(top2_relative - top1_relative)}px`;
 
-                desktopNeuralNav.insertBefore(conn, node2); 
+                desktopNeuralNav.insertBefore(conn, node2);
             }
         }
-        
-        if (desktopNavNodeElements.length > 1 && window.innerWidth > 992) { 
-             drawDesktopNavConnections(); 
-             window.addEventListener('resize', drawDesktopNavConnections); 
+
+        if (desktopNavNodeElements.length > 1 && window.innerWidth > 992) {
+             drawDesktopNavConnections();
+             window.addEventListener('resize', drawDesktopNavConnections);
         }
 
-        // MODIFIED: Removed Data Flow Particle Script
     });
     </script>
 </body>
