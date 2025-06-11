@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carlo Pinto - CPA | AI Practitioner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,587 +13,636 @@
         }
 
         :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #1a1a2e;
-            --text-primary: #f0f0f0;
-            --text-secondary: #b8b8b8;
-            --accent-blue: #4a9eff;
-            --accent-green: #52d3aa;
-            --accent-purple: #8b7ff7;
-            --node-glow: #4a9eff;
-            --neuron-fire-halo: rgba(200, 230, 200, 0.2);
-            --neuron-fire-core: rgba(230, 255, 230, 0.9);
-            --connection-fire-color-base: "173, 216, 173";
+            --primary-dark: #0f172a;
+            --secondary-dark: #1e293b;
+            --accent-blue: #3b82f6;
+            --accent-light: #60a5fa;
+            --neural-accent: #06b6d4; 
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-subtle: #334155;
+            /* Increased opacity for better text contrast */
+            --card-bg: rgba(30, 41, 59, 0.9); 
+            --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            --gradient-accent: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
         }
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            overflow-x: hidden;
+        html {
             scroll-behavior: smooth;
         }
 
-        #neural-bg {
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Canvas for Neural Network Background */
+        #neural-network-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.65;
-        }
-
-        /* Desktop Navigation */
-        .neural-nav {
-            position: fixed;
-            top: 50%;
-            right: 30px;
-            transform: translateY(-50%);
-            z-index: 1000;
-        }
-
-        .neural-nav .node { /* Added specificity for desktop nav nodes */
-            position: relative;
-            width: 60px;
-            height: 60px;
-            margin: 40px 0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .neural-nav .node::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, var(--accent-blue) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        .neural-nav .node::after {
-            content: attr(data-label);
-            position: absolute;
-            right: 80px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.8);
-            padding: 5px 15px;
-            border-radius: 20px;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            font-size: 14px;
-            border: 1px solid var(--accent-blue);
             pointer-events: none;
         }
-
-        .neural-nav .node:hover::after {
-            opacity: 1;
-            transform: translateY(-50%) translateX(-10px);
-        }
-
-        .neural-nav .node-core { /* Added specificity */
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 20px;
-            height: 20px;
-            background: var(--accent-blue);
-            border-radius: 50%;
-            box-shadow: 0 0 20px var(--accent-blue);
-        }
-
-        .neural-nav .node.active .node-core { /* Added specificity */
-            background: var(--accent-green);
-            box-shadow: 0 0 30px var(--accent-green);
-        }
-
-        .neural-nav .neural-connection { /* Added specificity */
-            position: absolute;
-            width: 2px;
-            background: linear-gradient(to bottom, transparent, var(--accent-blue), transparent);
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0.5;
-        }
-
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.7; }
-            50% { transform: scale(1.3); opacity: 0.3; }
-            100% { transform: scale(1); opacity: 0.7; }
-        }
-
-        /* Mobile Navigation Styles */
-        .mobile-nav-toggle {
-            display: none; /* Hidden by default, shown in media query */
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1001; /* Above neural-nav if it were visible, and above content */
-            background: rgba(26, 26, 46, 0.8);
-            border: 1px solid var(--accent-blue);
-            color: var(--text-primary);
-            padding: 10px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-        .mobile-nav-toggle svg {
-            width: 24px;
-            height: 24px;
-            stroke: currentColor;
-        }
-
-        .mobile-menu {
-            display: none; /* Hidden by default */
+        
+        /* Navigation */
+        .nav {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(10, 10, 10, 0.98); /* Darker, more opaque background */
-            z-index: 1000; /* Below toggle, above content */
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding-top: 70px; /* Space for close button or header */
+            right: 0;
+            /* Increased opacity for better text contrast */
+            background: rgba(15, 23, 42, 0.97); 
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+            z-index: 1000;
+            padding: 1rem 0;
         }
-        .mobile-menu.active {
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
             display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .mobile-menu a {
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
             color: var(--text-primary);
             text-decoration: none;
-            font-size: 1.5rem;
-            padding: 15px 0;
-            margin: 10px 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
             transition: color 0.3s ease;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            width: 80%;
-            text-align: center;
+            position: relative;
         }
-        .mobile-menu a:last-child {
-            border-bottom: none;
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent-blue);
         }
-        .mobile-menu a:hover, .mobile-menu a.active-link {
-            color: var(--accent-green);
-        }
-        .mobile-menu .close-btn {
+
+        .nav-links a::after {
+            content: '';
             position: absolute;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            font-size: 2rem; /* Larger close icon */
-            cursor: pointer;
-            padding: 10px;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
         }
 
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
 
+        /* Mobile Navigation */
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-primary);
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 2rem;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu a {
+            display: block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-subtle);
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--accent-blue);
+        }
+
+        /* Sections */
         section {
             min-height: 100vh;
+            padding: 6rem 2rem 4rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 80px 20px;
-            position: relative;
-            box-sizing: border-box;
         }
 
         .container {
             max-width: 1200px;
             width: 100%;
             margin: 0 auto;
-            padding: 0 15px;
-            text-align: center;
         }
 
-        h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            font-weight: 800;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, #6b9fff, #a890fe);
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 8rem 2rem 6rem;
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-align: center;
         }
 
-        h2 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 700;
-            margin-bottom: 40px;
-            color: #e8e8e8;
-            text-align: center;
-        }
-
-        h3 {
-            font-size: clamp(1.4rem, 3vw, 1.8rem);
-            font-weight: 600;
-            margin: 25px 0 15px;
-            color: var(--accent-blue);
-        }
-
-        p {
-            font-size: clamp(1rem, 2.5vw, 1.15rem);
-            line-height: 1.8;
-            margin-bottom: 25px;
-            color: var(--text-secondary);
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            text-align: left;
-        }
-
-        #home {
-             background: radial-gradient(ellipse at center, rgba(0, 217, 255, 0.1) 0%, transparent 60%);
-        }
-
-        .hero-content {
-            text-align: center;
-            animation: fadeInUp 1s ease forwards;
-        }
-
-        .hero-content p {
-            text-align: center;
-        }
-
-        .cp-logo {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            font-weight: 700;
-            color: var(--accent-green);
-            border: 2px solid var(--accent-green);
-            padding: 10px 20px;
-            border-radius: 12px;
-            display: inline-block;
-            margin-bottom: 25px;
-            letter-spacing: 1px;
-            text-shadow: 0 0 10px rgba(82, 211, 170, 0.5);
-        }
-
-
-        .tagline {
-            font-size: clamp(1.2rem, 3vw, 1.5rem);
-            color: #7db8e8;
-            margin-bottom: 40px;
+        .hero .subtitle {
+            font-size: 1.5rem;
+            color: var(--accent-light);
+            margin-bottom: 1.5rem;
             font-weight: 500;
-            text-align: center;
         }
 
+        .hero .description {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--border-subtle);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-accent); /* Changed to accent gradient */
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neural-accent);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Timeline */
         .timeline {
             position: relative;
-            padding: 40px 0;
             max-width: 800px;
             margin: 0 auto;
         }
 
-        .timeline-item {
-            margin-bottom: 50px;
-            padding-left: 70px;
-            position: relative;
-            animation: fadeInLeft 0.8s ease forwards;
-            text-align: left;
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gradient-accent);
         }
 
-        .timeline-item:last-child {
-            margin-bottom: 0;
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding: 0 2rem;
+        }
+
+        .timeline-item:nth-child(odd) {
+            text-align: right;
+            padding-right: calc(50% + 2rem);
+        }
+
+        .timeline-item:nth-child(even) {
+            text-align: left;
+            padding-left: calc(50% + 2rem);
         }
 
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: 20px;
-            top: 8px;
+            top: 0;
             width: 20px;
             height: 20px;
-            background: var(--accent-blue);
+            background: var(--neural-accent);
             border-radius: 50%;
-            box-shadow: 0 0 25px var(--accent-blue);
-            z-index: 1;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 4px solid var(--primary-dark);
+            box-shadow: 0 0 0 4px var(--neural-accent);
         }
 
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            left: 29px;
-            top: 28px;
-            width: 3px;
-            height: calc(100% + 22px);
-            background: linear-gradient(to bottom, var(--accent-blue), transparent);
-            z-index: 0;
+        .timeline-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border-subtle);
+            border-radius: 15px;
+            padding: 2rem;
+            position: relative;
         }
 
-        .timeline-item:last-child::after {
-            display: none;
+        .timeline-content h3 {
+            color: var(--accent-light);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
         }
 
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 35px;
-            margin-top: 40px;
-        }
-
-        .project-card {
-            background: rgba(26, 26, 46, 0.7);
-            border: 1px solid rgba(74, 158, 255, 0.4);
-            border-radius: 20px;
-            padding: 35px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            backdrop-filter: blur(8px);
-            text-align: left;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px) scale(1.03);
-            border-color: var(--accent-green);
-            box-shadow: 0 15px 35px rgba(82, 211, 170, 0.3);
-        }
-
-        .project-card h3 {
-            margin-top: 0;
-        }
-
+        /* Tech Stack */
         .tech-stack {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 20px;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
         }
 
         .tech-tag {
-            background: rgba(74, 158, 255, 0.2);
-            border: 1px solid #5a7fa6;
-            padding: 8px 18px;
+            padding: 0.5rem 1rem;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
             border-radius: 25px;
-            font-size: 0.95rem;
-            color: #d0e0f0;
+            font-size: 0.9rem;
+            color: var(--neural-accent);
             font-weight: 500;
         }
 
-        .contact-content {
+        /* Contact Section */
+        .contact {
             text-align: center;
-            max-width: 650px;
-            margin: 0 auto;
+            padding: 6rem 2rem;
         }
 
         .contact-links {
             display: flex;
             justify-content: center;
-            gap: 25px;
-            margin-top: 45px;
+            gap: 2rem;
+            margin-top: 3rem;
             flex-wrap: wrap;
         }
 
         .contact-link {
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 18px 35px;
-            background: rgba(74, 158, 255, 0.15);
-            border: 2px solid var(--accent-blue);
-            border-radius: 30px;
-            text-decoration: none;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-subtle);
+            border-radius: 15px;
             color: var(--text-primary);
-            font-weight: 500;
+            text-decoration: none;
             transition: all 0.3s ease;
-        }
-
-        .contact-link svg {
-            width: 22px;
-            height: 22px;
+            font-weight: 500;
         }
 
         .contact-link:hover {
-            background: var(--accent-blue);
-            color: var(--bg-primary);
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 12px 30px rgba(74, 158, 255, 0.6);
+            border-color: var(--neural-accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(6, 182, 212, 0.2);
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .contact-link svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--neural-accent);
         }
 
-        @keyframes fadeInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @media (max-width: 992px) {
-            .neural-nav {
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
                 display: none;
             }
-            .mobile-nav-toggle {
-                display: block;
-            }
-             h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); }
-             h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); }
-        }
 
-
-        @media (max-width: 768px) {
-            section {
-                padding: 60px 15px;
-                min-height: auto;
+            .mobile-toggle {
+                display: flex;
             }
 
-            .container {
-                padding: 0 10px;
+            .hero {
+                padding: 6rem 1rem 4rem;
             }
 
-            h1 { font-size: clamp(2rem, 8vw, 3rem); }
-            h2 { font-size: clamp(1.6rem, 6vw, 2.5rem); }
-            p { font-size: clamp(0.95rem, 4vw, 1.1rem); }
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
 
+            .timeline::before {
+                left: 20px;
+            }
 
-            .projects-grid {
+            .timeline-item {
+                padding-left: 3rem;
+                padding-right: 1rem;
+                text-align: left;
+            }
+
+            .timeline-item:nth-child(odd) {
+                padding-right: 1rem;
+                text-align: left;
+            }
+
+            .timeline-item:nth-child(even) {
+                padding-left: 3rem;
+            }
+
+            .timeline-item::before {
+                left: 20px;
+                transform: none;
+            }
+
+            .cards-grid {
                 grid-template-columns: 1fr;
-                gap: 25px;
-            }
-
-            .project-card {
-                padding: 25px;
+                gap: 1.5rem;
             }
 
             .contact-links {
                 flex-direction: column;
-                align-items: stretch;
-                gap: 20px;
-            }
-            .contact-link {
-                padding: 15px 25px;
+                align-items: center;
             }
 
-            .timeline-item {
-                padding-left: 50px;
-            }
-            .timeline-item::before {
-                left: 10px;
-                width: 15px;
-                height: 15px;
-            }
-            .timeline-item::after {
-                left: 16px;
+            section {
+                padding: 4rem 1rem 2rem;
+                min-height: auto;
             }
         }
 
-        @media (max-width: 480px) {
-            h1 { font-size: clamp(1.8rem, 10vw, 2.5rem); }
-            h2 { font-size: clamp(1.4rem, 8vw, 2rem); }
-            p { font-size: clamp(0.9rem, 5vw, 1rem); }
-            .tagline { font-size: clamp(1rem, 5vw, 1.2rem); }
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
 
-            .project-card h3 {
-                font-size: clamp(1.2rem, 5vw, 1.5rem);
-            }
-            .tech-tag {
-                padding: 6px 12px;
-                font-size: 0.85rem;
-            }
-            .contact-link {
-                padding: 12px 20px;
-                font-size: 0.95rem;
-            }
-            .contact-link svg {
-                width: 18px;
-                height: 18px;
-            }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading animation for profile image placeholder */
+        .profile-placeholder {
+            background: var(--gradient-primary);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
     </style>
 </head>
 <body>
-    <canvas id="neural-bg"></canvas>
-    <button class="mobile-nav-toggle" aria-label="Open navigation menu" aria-expanded="false">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-        </svg>
-    </button>
+    <!-- Canvas for Neural Network Animation -->
+    <canvas id="neural-network-canvas"></canvas>
 
-    <div class="mobile-menu" id="mobileMenu">
-        <button class="close-btn" aria-label="Close navigation menu">&times;</button>
-        <a href="#home" class="mobile-nav-link">Introduction</a>
-        <a href="#background" class="mobile-nav-link">Background</a>
-        <a href="#ai-journey" class="mobile-nav-link">AI Journey</a>
-        <a href="#contact" class="mobile-nav-link">Contact</a>
-    </div>
-
-
-    <nav class="neural-nav">
-        <div class="node active" data-label="Introduction" onclick="scrollToSection('home')">
-            <div class="node-core"></div>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#home" class="logo">Carlo Pinto</a>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#background" class="nav-link">Background</a></li>
+                <li><a href="#ai-journey" class="nav-link">AI Journey</a></li>
+                <li><a href="#contact" class="nav-link">Contact</li>
+            </ul>
+            <div class="mobile-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-        <div class="neural-connection"></div>
-        <div class="node" data-label="Background" onclick="scrollToSection('background')">
-            <div class="node-core"></div>
-        </div>
-        <div class="neural-connection"></div>
-        <div class="node" data-label="AI Journey" onclick="scrollToSection('ai-journey')">
-            <div class="node-core"></div>
-        </div>
-        <div class="neural-connection"></div>
-        <div class="node" data-label="Contact" onclick="scrollToSection('contact')">
-            <div class="node-core"></div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#home" class="mobile-nav-link">Home</a>
+            <a href="#background" class="mobile-nav-link">Background</a>
+            <a href="#ai-journey" class="mobile-nav-link">AI Journey</a>
+            <a href="#contact" class="mobile-nav-link">Contact</a>
         </div>
     </nav>
 
-    <section id="home">
+    <!-- Hero Section -->
+    <section id="home" class="hero">
         <div class="container">
-            <div class="hero-content">
-                <div class="cp-logo">CP</div> <h1>Carlo Pinto</h1>
-                <p class="tagline">CPA | AI Practitioner</p>
-                <p>As a Certified Public Accountant and AI Practitioner, I bridge the crucial gap between traditional finance and transformative artificial intelligence. My mission is to empower businesses by revolutionizing accounting and operational workflows with intelligent automation, unlocking new levels of efficiency and insight.</p>
+            <div class="profile-image profile-placeholder">
+                <!-- Add your profile image here: <img src="profile.jpg" alt="Carlo Pinto"> -->
+                CP
+            </div>
+            <h1 class="fade-in">Carlo Pinto</h1>
+            <p class="subtitle fade-in">CPA | AI Practitioner</p>
+            <p class="description fade-in">
+                As a Certified Public Accountant and AI Practitioner, I bridge the crucial gap between traditional finance and transformative artificial intelligence. My mission is to empower businesses by revolutionizing accounting and operational workflows with intelligent automation, unlocking new levels of efficiency and insight.
+            </p>
+            <div class="cta-buttons fade-in">
+                <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                <a href="#ai-journey" class="btn btn-secondary">View My Work</a>
             </div>
         </div>
     </section>
 
+    <!-- Background Section -->
     <section id="background">
         <div class="container">
-            <h2>My Professional Journey</h2>
+            <div class="section-header fade-in">
+                <h2>Professional Journey</h2>
+                <p>Building expertise across finance, education, and technology innovation</p>
+            </div>
+            
             <div class="timeline">
-                <div class="timeline-item">
-                    <h3>Certified Public Accountant</h3>
-                    <p>Licensed CPA with a proven track record in financial reporting, auditing, and tax strategy across diverse industries. Successfully led teams to implement best practices and ensure robust regulatory compliance.</p>
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <h3>Certified Public Accountant</h3>
+                        <p>Licensed CPA with a proven track record in financial reporting, auditing, and tax strategy across diverse industries. Successfully led teams to implement best practices and ensure robust regulatory compliance.</p>
+                    </div>
                 </div>
-                <div class="timeline-item">
-                    <h3>Educator & Mentor</h3>
-                    <p>Passionate former accounting educator dedicated to demystifying complex financial concepts and fostering professional growth. Mentored numerous aspiring CPAs, guiding them to certification success.</p>
+                
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <h3>Educator & Mentor</h3>
+                        <p>Passionate former accounting educator dedicated to demystifying complex financial concepts and fostering professional growth. Mentored numerous aspiring CPAs, guiding them to certification success.</p>
+                    </div>
                 </div>
-                <div class="timeline-item">
-                    <h3>Leadership in Innovation</h3>
-                    <p>Championed digital transformation within traditional accounting environments, spearheading initiatives that integrated automation and modernized workflows, resulting in efficiency gains exceeding 40%.</p>
+                
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <h3>Leadership in Innovation</h3>
+                        <p>Championed digital transformation within traditional accounting environments, spearheading initiatives that integrated automation and modernized workflows, resulting in efficiency gains exceeding 40%.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- AI Journey Section -->
     <section id="ai-journey">
         <div class="container">
-            <h2>Pioneering AI in Finance</h2>
-            <p>My evolution into AI is driven by a commitment to pioneering innovation within professional services. I focus on developing and implementing AI solutions that address real-world financial challenges and create tangible value.</p>
-            <div class="projects-grid">
-                <div class="project-card">
+            <div class="section-header fade-in">
+                <h2>Pioneering AI in Finance</h2>
+                <p>Developing cutting-edge AI solutions to transform financial operations and create tangible business value</p>
+            </div>
+            
+            <div class="cards-grid">
+                <div class="card fade-in">
                     <h3>Self-hosting and Fine-tuning LLMs</h3>
-                    <p>My journey into fine-tuning LLMs locally for a Philippine tax assistant on an M3 Mac (16GB RAM) was a significant learning curve. With Gemma 2B, I navigated Hugging Face authentication, CMake build complexities, and library conflicts. A `requires_grad` error pushed me to disable gradient_checkpointing, initially causing NaNs. I managed to stabilize training by adopting a very low learning rate, a small rank, and switching to bfloat16. While deployment via Ollama was successful, Gemma struggled to fully overwrite some pre-trained factual errors (like tax rates), likely due to weak fine-tuning signals limited by my hardware and a dataset of only 600+ input/output pairs. Switching to TinyLlama 1.1B, the initial fine-tuning likely resulted in catastrophic forgetting, as it struggled with specific tax facts and showed weaker reasoning. This highlighted that pure fine-tuning faces significant hurdles with factual accuracy on small models, datasets, and constrained memory. My next step is a RAG setup with Llama 3 8B on a dedicated GPU for more robust and reliable results.</p>
+                    <p>Developed a Philippine tax assistant by fine-tuning local LLMs on M3 Mac hardware. Navigated complex challenges including gradient checkpointing, memory optimization, and model stability. Learned valuable lessons about hardware constraints, dataset quality, and the importance of robust fine-tuning approaches for factual accuracy.</p>
                     <div class="tech-stack">
                         <span class="tech-tag">Gemma 2B</span>
                         <span class="tech-tag">TinyLlama</span>
@@ -602,9 +652,9 @@
                     </div>
                 </div>
 
-                <div class="project-card">
-                    <h3>RAG Implementation with an Open Source LLM</h3>
-                    <p>Developed a tax assistant using Retrieval Augmented Generation (RAG) with a quantized Llama 3 8B model. This project involved leveraging LangChain for the pipeline, Sentence-Transformers for embeddings, and FAISS-CPU for the vector database. Key learnings included managing software dependencies, the critical importance of context for LLM accuracy, and troubleshooting minor output inconsistencies. This hands-on experience significantly enhanced my understanding of RAG and LLM fine-tuning, paving the way for future explorations with Vertex AI.</p>
+                <div class="card fade-in">
+                    <h3>RAG Implementation</h3>
+                    <p>Built a sophisticated tax assistant using Retrieval Augmented Generation with quantized Llama 3 8B. Leveraged LangChain, Sentence-Transformers, and FAISS-CPU to create an efficient question-answering system. Gained deep insights into context management and vector database optimization.</p>
                     <div class="tech-stack">
                         <span class="tech-tag">Llama 3</span>
                         <span class="tech-tag">RAG</span>
@@ -614,396 +664,275 @@
                     </div>
                 </div>
 
-                <div class="project-card">
-                    <h3>Automation with Python Scripts</h3>
-                    <p>Leveraging GPT-4 mini-high as my AI assistant, I created six Python scripts to automate accounting tasks that previously consumed a minimum of 5 hours of manual work. These scripts have drastically cut processing time to under 30 minutes, freeing up significant time for continued learning and innovation. Debugging was the most challenging phase, but with AI assistance, issues that could have taken hours were resolved much faster. I'm now focused on developing AI workflows and agents to fully automate most office tasks by year-end, aiming for substantial boosts in efficiency and cost reduction. My experience confirms that failing to embrace AI isn’t just missing out on innovation; it’s choosing to stand still while the world moves forward.</p>
+                <div class="card fade-in">
+                    <h3>Process Automation</h3>
+                    <p>Created six Python scripts with GPT-4 assistance that reduced 5+ hours of manual accounting work to under 30 minutes. These automation solutions demonstrate the transformative power of AI in traditional workflows, achieving dramatic efficiency improvements while maintaining accuracy and compliance.</p>
                     <div class="tech-stack">
                         <span class="tech-tag">Python</span>
                         <span class="tech-tag">Automation</span>
-                        <span class="tech-tag">AI Assistant (GPT-4)</span>
+                        <span class="tech-tag">GPT-4</span>
                         <span class="tech-tag">Workflow Optimization</span>
                     </div>
                 </div>
 
-                <div class="project-card">
-                    <h3>Exploring Transformer Models</h3>
-                    <p>To deepen my understanding of the models I work with, I've been creating visualizations to explore the inner workings of transformer architectures, often referencing explanations like those provided by Anthropic for Claude. My process involves breaking down the model step-by-step: Input text is first tokenized, with each token converted into a vector via token embeddings to capture contextual meaning. Positional embeddings are then added, assigning a unique position code to each token to help the model understand word order. These combined vectors flow into the self-attention mechanism, where each token assesses all others using query, key, and value vectors to gather rich contextual information and understand inter-word relationships. Following self-attention, each token's representation is refined through a feed-forward neural network (FFNN), which expands, transforms, and then compresses the vector. Critical components like residual connections and layer normalization are applied throughout to stabilize learning and improve performance. Visualizing these components helps solidify my grasp of how transformers comprehend language structure and meaning, making them so effective for tasks like translation, summarization, and text generation.</p>
+                <div class="card fade-in">
+                    <h3>Transformer Architecture Analysis</h3>
+                    <p>Deep-dived into transformer model architectures through hands-on visualization and analysis. Explored tokenization, embeddings, self-attention mechanisms, and feed-forward networks to understand how modern language models process and understand text. This foundation enables more informed AI solution design and implementation.</p>
                     <div class="tech-stack">
                         <span class="tech-tag">Transformers</span>
                         <span class="tech-tag">LLM Architecture</span>
                         <span class="tech-tag">Data Visualization</span>
                         <span class="tech-tag">Self-Attention</span>
-                         <span class="tech-tag">Embeddings</span>
+                        <span class="tech-tag">Embeddings</span>
                     </div>
                 </div>
+
+                <!-- Automated BIR DAT File Submission Card -->
+                <div class="card fade-in">
+                    <h3>Automated BIR DAT File Submission</h3>
+                    <p>Successfully developed and completed an automated workflow for sending BIR DAT file attachments (SLSP, SAWT, and QAP) using n8n, significantly streamlining the submission process. The system extracts client data from spreadsheets, standardizes TIN formats, groups clients with available DAT files, and dynamically generates personalized email subjects. It then retrieves and consolidates the required files, dispatches them via email to the BIR eSubmission portal, and includes built-in validation and detailed reporting for transparency and error tracking. This robust automation, developed with the assistance of Gemini 2.5 Pro and Claude Sonnet 4, made a complex task more efficient and reliable.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Javascript</span>
+                        <span class="tech-tag">Workflow Automation</span>
+                        <span class="tech-tag">n8n</span>
+                        <span class="tech-tag">Gemini 2.5 Pro</span>
+                        <span class="tech-tag">Claude Sonnet 4</span>
+                    </div>
+                </div>
+                <!-- End Automated BIR DAT File Submission Card -->
+
+                <!-- New Course Card -->
+                <div class="card fade-in">
+                    <h3>Introduction to Generative AI with Applications</h3>
+                    <p>Created a course titled “Introduction to Generative AI with Applications,” designed specifically for accounting and business students to explore the fundamentals of generative AI and its real-world uses. Interactive learning materials were developed to ensure the course is both engaging and practically impactful for students and the university alike.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Generative AI</span>
+                        <span class="tech-tag">Curriculum Development</span>
+                        <span class="tech-tag">Interactive Learning</span>
+                        <span class="tech-tag">AI Applications</span>
+                    </div>
+                </div>
+                <!-- End New Course Card -->
+
             </div>
         </div>
     </section>
 
-    <section id="contact">
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
         <div class="container">
-            <div class="contact-content">
-                <h2>Collaborate & Innovate</h2>
-                <p>I am eager to explore AI's potential in finance, collaborate on groundbreaking projects, or assist your organization in navigating the future of accounting. Let's connect and discuss the possibilities.</p>
-                <div class="contact-links">
-                    <a href="mailto:hello@carlopinto.pro" class="contact-link">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-                            <path d="m22 7-10 5L2 7"></path>
-                        </svg>
-                        hello@carlopinto.pro
-                    </a>
-                    <a href="https://linkedin.com/in/carlopinto" class="contact-link" target="_blank" rel="noopener noreferrer">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                        </svg>
-                        LinkedIn
-                    </a>
-                    <a href="tel:+639175500799" class="contact-link">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                        </svg>
-                        +63 917 550 0799
-                    </a>
-                </div>
+            <div class="section-header fade-in">
+                <h2>Let's Connect</h2>
+                <p>Ready to explore AI's potential in finance or collaborate on innovative projects? I'd love to hear from you.</p>
+            </div>
+            
+            <div class="contact-links">
+                <a href="mailto:hello@carlopinto.pro" class="contact-link fade-in">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                        <path d="m22 7-10 5L2 7"></path>
+                    </svg>
+                    hello@carlopinto.pro
+                </a>
+                
+                <a href="https://linkedin.com/in/carlopinto" class="contact-link fade-in" target="_blank" rel="noopener noreferrer">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                    LinkedIn
+                </a>
+                
+                <a href="tel:+639175500799" class="contact-link fade-in">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                    +63 917 550 0799
+                </a>
             </div>
         </div>
     </section>
 
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const neuralBgCanvas = document.getElementById('neural-bg');
-        const ctx = neuralBgCanvas.getContext('2d');
+        // --- NEURAL NETWORK ANIMATION ---
+        const canvas = document.getElementById('neural-network-canvas');
+        const ctx = canvas.getContext('2d');
 
-        let canvasWidth = window.innerWidth;
-        let canvasHeight = window.innerHeight;
-        neuralBgCanvas.width = canvasWidth;
-        neuralBgCanvas.height = canvasHeight;
-
-        const backgroundNodes = [];
-        let numBackgroundNodes;
-
-        class BackgroundNode {
-            constructor() {
-                const centerX = canvasWidth / 2;
-                const centerY = canvasHeight / 2;
-                const horizontalFocus = 0.98;
-                const maxRadiusX = canvasWidth * 0.48 * horizontalFocus;
-                const maxRadiusY = canvasHeight * 0.46;
-
-                let r, angle;
-                do {
-                    r = Math.sqrt(Math.random());
-                    angle = Math.random() * 2 * Math.PI;
-                } while (r < 0.005);
-
-                this.x = centerX + r * maxRadiusX * Math.cos(angle);
-                this.y = centerY + r * maxRadiusY * Math.sin(angle);
-
-                this.vx = (Math.random() - 0.5) * 0.07;
-                this.vy = (Math.random() - 0.5) * 0.07;
-                this.radius = Math.random() * 1.1 + 1.2;
-
-                this.isFiring = false;
-                this.fireCooldown = Math.random() * 130 + 40;
-                this.fireDuration = 25;
-                this.currentFireTime = 0;
-
-                this.baseColorOuter = `rgba(173, 216, 173, 0.25)`;
-                this.baseColorInner = `rgba(200, 230, 200, 0.50)`;
+        // Set canvas dimensions to match the window
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        
+        // --- Animation Settings (Tweaked for subtlety) ---
+        const settings = {
+            particleColor: getComputedStyle(document.documentElement).getPropertyValue('--neural-accent').trim(),
+            lineColor: getComputedStyle(document.documentElement).getPropertyValue('--neural-accent').trim(),
+            particleAmount: 100, // Reduced from 120
+            particleSize: 1.5,   // Reduced from 2
+            maxDistance: 130,    // Increased slightly to keep some connections
+            speed: 0.2,          // Reduced from 0.3
+            baseOpacity: 0.60,   // Updated setting for overall background opacity (another 20% reduction)
+        };
+        
+        let particles = [];
+        
+        // --- Particle Class ---
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.vx = (Math.random() - 0.5) * settings.speed;
+                this.vy = (Math.random() - 0.5) * settings.speed;
             }
 
+            // Update particle position
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
 
-                const centerX = canvasWidth / 2;
-                const centerY = canvasHeight / 2;
-                const brainBoundaryX = canvasWidth * 0.49;
-                const brainBoundaryY = canvasHeight * 0.48;
-
-                const normalizedX = (this.x - centerX) / brainBoundaryX;
-                const normalizedY = (this.y - centerY) / brainBoundaryY;
-                const distanceFromEllipseCenterSq = normalizedX * normalizedX + normalizedY * normalizedY;
-
-                if (distanceFromEllipseCenterSq > 1) {
-                    this.vx -= normalizedX * 0.008;
-                    this.vy -= normalizedY * 0.008;
-
-                    this.vx *= 0.92;
-                    this.vy *= 0.92;
-
-                    if (distanceFromEllipseCenterSq > 1.05) {
-                        this.x = centerX + normalizedX * brainBoundaryX * 0.97;
-                        this.y = centerY + normalizedY * brainBoundaryY * 0.97;
-                    }
-                }
-
-                if (this.isFiring) {
-                    this.currentFireTime++;
-                    if (this.currentFireTime >= this.fireDuration) {
-                        this.isFiring = false;
-                        this.currentFireTime = 0;
-                    }
-                } else {
-                    this.fireCooldown--;
-                    if (this.fireCooldown <= 0) {
-                        if (Math.random() < 0.05) {
-                            this.isFiring = true;
-                            this.currentFireTime = 0;
-                            this.fireCooldown = Math.random() * 180 + 80;
-                        } else {
-                            this.fireCooldown = Math.random() * 12 + 2;
-                        }
-                    }
-                }
+                // Bounce off edges
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
             }
 
+            // Draw particle
             draw() {
-                const gradient = ctx.createRadialGradient(this.x, this.y, this.radius * 0.2, this.x, this.y, this.radius);
-                if (this.isFiring) {
-                    const fireProgress = this.currentFireTime / this.fireDuration;
-                    const coreBrightness = 1 - Math.abs(fireProgress - 0.5) * 1.8;
-                    const haloAlpha = 0.05 + Math.sin(fireProgress * Math.PI) * 0.10;
-
-                    gradient.addColorStop(0, `rgba(230, 255, 230, ${0.35 + coreBrightness * 0.15})`);
-                    gradient.addColorStop(0.4, `rgba(200, 240, 200, ${0.25 + coreBrightness * 0.1})`);
-                    gradient.addColorStop(1, `rgba(173, 216, 173, 0.15)`);
-
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.radius + 0.6 + Math.sin(fireProgress * Math.PI) * 1.0, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(200, 230, 200, ${haloAlpha})`;
-                    ctx.fill();
-
-                } else {
-                    gradient.addColorStop(0, this.baseColorInner);
-                    gradient.addColorStop(1, this.baseColorOuter);
-                }
-                ctx.fillStyle = gradient;
-
+                ctx.fillStyle = settings.particleColor;
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.arc(this.x, this.y, settings.particleSize, 0, Math.PI * 2);
                 ctx.fill();
             }
         }
-
-        function initializeNodes() {
-            backgroundNodes.length = 0;
-            canvasWidth = Math.max(1, window.innerWidth); // Ensure canvasWidth is at least 1
-            canvasHeight = Math.max(1, window.innerHeight); // Ensure canvasHeight is at least 1
-            neuralBgCanvas.width = canvasWidth;
-            neuralBgCanvas.height = canvasHeight;
-            const brainEllipseArea = Math.PI * (canvasWidth * 0.48 * 0.98) * (canvasHeight * 0.46);
-            // MODIFIED: Increased targetNodesPer10kPixels for denser background
-            const targetNodesPer10kPixels = 5.5;
-            numBackgroundNodes = Math.floor(brainEllipseArea / 10000 * targetNodesPer10kPixels);
-            // MODIFIED: Adjusted min/max node counts slightly to accommodate higher density
-            numBackgroundNodes = Math.max(350, Math.min(700, numBackgroundNodes));
-
-
-            for (let i = 0; i < numBackgroundNodes; i++) {
-                 backgroundNodes.push(new BackgroundNode());
+        
+        // --- Initialize Particles ---
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < settings.particleAmount; i++) {
+                particles.push(new Particle(
+                    Math.random() * canvas.width,
+                    Math.random() * canvas.height
+                ));
             }
         }
-        initializeNodes();
+        initParticles();
+        window.addEventListener('resize', initParticles);
 
-        function animateNeuralBackground() {
-            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+        // --- Animation Loop ---
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // Apply the overall base opacity for the entire background animation
+            ctx.globalAlpha = settings.baseOpacity; 
 
-            const connectionDistance = Math.min(65, canvasWidth / 15);
-            const pulseLength = 6;
-            const baseConnectionColorRGB = getComputedStyle(document.documentElement).getPropertyValue('--connection-fire-color-base').trim();
+            particles.forEach(p1 => {
+                p1.update();
+                p1.draw();
 
-            for (let i = 0; i < backgroundNodes.length; i++) {
-                for (let j = i + 1; j < backgroundNodes.length; j++) {
-                    const nodeA = backgroundNodes[i];
-                    const nodeB = backgroundNodes[j];
-                    const dx = nodeA.x - nodeB.x;
-                    const dy = nodeA.y - nodeB.y;
+                particles.forEach(p2 => {
+                    if (p1 === p2) return;
+
+                    const dx = p1.x - p2.x;
+                    const dy = p1.y - p2.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    if (distance < connectionDistance) {
-                        const baseLineAlpha = 0.05 - (distance / connectionDistance) * 0.045;
+                    if (distance < settings.maxDistance) {
+                        ctx.strokeStyle = settings.lineColor;
+                        // Apply fade based on distance, but also scale by the base opacity
+                        ctx.globalAlpha = settings.baseOpacity * (1 - (distance / settings.maxDistance)); 
                         ctx.beginPath();
-                        ctx.moveTo(nodeA.x, nodeA.y);
-                        ctx.lineTo(nodeB.x, nodeB.y);
-                        ctx.strokeStyle = `rgba(${baseConnectionColorRGB}, ${Math.max(0.001, baseLineAlpha)})`;
-                        ctx.lineWidth = 0.1;
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(p2.x, p2.y);
                         ctx.stroke();
-
-                        if (nodeA.isFiring && nodeA.currentFireTime > 0) {
-                            const fireProgress = nodeA.currentFireTime / nodeA.fireDuration;
-
-                            const pulseStartX = nodeA.x - dx * fireProgress;
-                            const pulseStartY = nodeA.y - dy * fireProgress;
-
-                            const pulseEndX = nodeA.x - dx * (fireProgress - pulseLength / distance);
-                            const pulseEndY = nodeA.y - dy * (fireProgress - pulseLength / distance);
-
-                            if (distance > pulseLength) {
-                                ctx.beginPath();
-                                ctx.moveTo(pulseStartX, pulseStartY);
-                                ctx.lineTo(pulseEndX, pulseEndY);
-                                ctx.strokeStyle = `rgba(180, 230, 180, 0.20)`;
-                                ctx.lineWidth = 0.7;
-                                ctx.lineCap = 'round';
-                                ctx.stroke();
-                            }
-                        }
-                        else if (nodeB.isFiring && nodeB.currentFireTime > 0) {
-                            const fireProgress = nodeB.currentFireTime / nodeB.fireDuration;
-
-                            const pulseStartX = nodeB.x + dx * fireProgress;
-                            const pulseStartY = nodeB.y + dy * fireProgress;
-
-                            const pulseEndX = nodeB.x + dx * (fireProgress - pulseLength / distance);
-                            const pulseEndY = nodeB.y + dy * (fireProgress - pulseLength / distance);
-
-                            if (distance > pulseLength) {
-                                ctx.beginPath();
-                                ctx.moveTo(pulseStartX, pulseStartY);
-                                ctx.lineTo(pulseEndX, pulseEndY);
-                                ctx.strokeStyle = `rgba(180, 230, 180, 0.20)`;
-                                ctx.lineWidth = 0.7;
-                                ctx.lineCap = 'round';
-                                ctx.stroke();
-                            }
-                        }
                     }
-                }
-            }
-
-            backgroundNodes.forEach(node => {
-                node.update();
-                node.draw();
-            });
-
-            requestAnimationFrame(animateNeuralBackground);
-        }
-
-        animateNeuralBackground();
-
-        window.addEventListener('resize', initializeNodes);
-
-        // --- Mobile Navigation Script ---
-        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-        const closeBtn = mobileMenu.querySelector('.close-btn');
-
-        if (mobileNavToggle && mobileMenu && closeBtn) {
-            mobileNavToggle.addEventListener('click', () => {
-                const isExpanded = mobileNavToggle.getAttribute('aria-expanded') === 'true' || false;
-                mobileNavToggle.setAttribute('aria-expanded', !isExpanded);
-                mobileMenu.classList.toggle('active');
-            });
-
-            closeBtn.addEventListener('click', () => {
-                mobileNavToggle.setAttribute('aria-expanded', 'false');
-                mobileMenu.classList.remove('active');
-            });
-
-            mobileNavLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    const sectionId = link.getAttribute('href');
-                    scrollToSection(sectionId.substring(1));
-                    mobileNavToggle.setAttribute('aria-expanded', 'false');
-                    mobileMenu.classList.remove('active');
                 });
             });
+            
+            requestAnimationFrame(animate);
         }
+        
+        animate();
 
-        window.scrollToSection = function(sectionId) {
-            const sectionElement = document.getElementById(sectionId);
-            if (sectionElement) {
-                sectionElement.scrollIntoView({ behavior: 'smooth' });
-                updateActiveNavNode(sectionId);
-                updateActiveMobileLink(sectionId);
-            }
-        }
 
-        const desktopNavNodes = document.querySelectorAll('.neural-nav .node');
+        // --- ORIGINAL PAGE JAVASCRIPT ---
 
-        function updateActiveNavNode(activeSectionId) {
-            desktopNavNodes.forEach(node => {
-                const sectionIdForNode = node.getAttribute('onclick').match(/'([^']+)'/)[1];
-                if (sectionIdForNode === activeSectionId) {
-                    node.classList.add('active');
-                } else {
-                    node.classList.remove('active');
-                }
+        // Mobile navigation toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
             });
-        }
+        });
 
-        function updateActiveMobileLink(activeSectionId) {
-            mobileNavLinks.forEach(link => {
-                if (link.getAttribute('href') === `#${activeSectionId}`) {
-                    link.classList.add('active-link');
-                } else {
-                    link.classList.remove('active-link');
-                }
-            });
-        }
-
+        // Smooth scrolling and active navigation
+        const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
         const sections = document.querySelectorAll('section[id]');
+
+        // Handle navigation clicks
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Update active navigation on scroll
+        function updateActiveNav() {
+            const scrollPosition = window.scrollY + 100;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    const activeLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
+                    if (activeLink) {
+                        activeLink.classList.add('active');
+                    }
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveNav);
+
+        // Intersection Observer for fade-in animations
         const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.5
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
         };
 
-        const intersectionObserver = new IntersectionObserver((entries) => {
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    updateActiveNavNode(entry.target.id);
-                    updateActiveMobileLink(entry.target.id);
+                    entry.target.classList.add('visible');
                 }
             });
         }, observerOptions);
 
-        sections.forEach(section => {
-            if (section) {
-                intersectionObserver.observe(section);
-            }
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
         });
 
-        const desktopNeuralNav = document.querySelector('.neural-nav');
-        const desktopNavNodeElements = Array.from(desktopNeuralNav.querySelectorAll('.node'));
-
-        function drawDesktopNavConnections() {
-            if (!desktopNeuralNav) return;
-            desktopNeuralNav.querySelectorAll('.neural-connection').forEach(conn => conn.remove());
-
-            for (let i = 0; i < desktopNavNodeElements.length - 1; i++) {
-                const node1 = desktopNavNodeElements[i];
-                const node2 = desktopNavNodeElements[i+1];
-
-                if (!node1 || !node2) continue;
-
-                const conn = document.createElement('div');
-                conn.className = 'neural-connection';
-
-                const rect1 = node1.getBoundingClientRect();
-                const rect2 = node2.getBoundingClientRect();
-                const navRect = desktopNeuralNav.getBoundingClientRect();
-
-                // Calculate the center of the node relative to the nav container
-                const top1_relative = rect1.top - navRect.top + (rect1.height / 2);
-                const top2_relative = rect2.top - navRect.top + (rect2.height / 2);
-
-                conn.style.top = `${Math.min(top1_relative, top2_relative)}px`;
-                conn.style.height = `${Math.abs(top2_relative - top1_relative)}px`;
-
-                desktopNeuralNav.insertBefore(conn, node2);
-            }
-        }
-
-        if (desktopNavNodeElements.length > 1 && window.innerWidth > 992) {
-             drawDesktopNavConnections();
-             window.addEventListener('resize', drawDesktopNavConnections);
-        }
-
-    });
+        document.addEventListener('DOMContentLoaded', () => {
+            updateActiveNav();
+        });
     </script>
 </body>
 </html>
