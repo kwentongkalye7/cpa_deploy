@@ -153,13 +153,19 @@
         
         @media (max-width: 640px) {
             .mindmap-container {
-                height: 500px; /* Adjusted height for labels */
+                height: 550px; /* Adjusted height for labels */
             }
             .mindmap-label {
                 font-size: 10px;
-                width: 80px;
+                width: 90px;
             }
         }
+         @media (max-width: 420px) {
+            .mindmap-label {
+                font-size: 9px;
+                width: 75px;
+            }
+         }
     </style>
 </head>
 <body class="antialiased">
@@ -455,26 +461,38 @@
             ];
 
             const generateMindMap = () => {
-                // Clear previous elements for responsiveness
                 linesContainer.innerHTML = '';
                 mindmapContainer.querySelectorAll('.mindmap-node').forEach(node => node.remove());
 
                 const containerWidth = mindmapContainer.offsetWidth;
+                const containerHeight = mindmapContainer.offsetHeight;
                 const isMobile = containerWidth < 640;
 
-                const radius = isMobile ? containerWidth / 2 - 60 : 250;
-                const nodeSize = isMobile ? 60 : 80;
-                const nodeWidth = isMobile ? 80 : 120;
+                let radiusX, radiusY, nodeSize, nodeWidth;
+
+                if (isMobile) {
+                    // Use an ellipse for mobile to fit better in portrait view
+                    radiusX = containerWidth / 2 - 70;
+                    radiusY = containerHeight / 2 - 90;
+                    nodeSize = containerWidth < 420 ? 50 : 60; // Smaller logos on smaller phones
+                    nodeWidth = containerWidth < 420 ? 75 : 90;
+                } else {
+                    // Use a circle for desktop
+                    radiusX = 250;
+                    radiusY = 250;
+                    nodeSize = 80;
+                    nodeWidth = 120;
+                }
                 
                 const centerX = containerWidth / 2;
-                const centerY = mindmapContainer.offsetHeight / 2;
+                const centerY = containerHeight / 2;
 
                 companies.forEach((company, index) => {
-                    const angle = (index / companies.length) * 2 * Math.PI;
+                    const angle = (index / companies.length) * 2 * Math.PI - (Math.PI / 2); // Start from top
                     const nodeHeight = nodeSize + 40; 
 
-                    const x = centerX + radius * Math.cos(angle) - (nodeWidth / 2); 
-                    const y = centerY + radius * Math.sin(angle) - (nodeHeight / 2);
+                    const x = centerX + radiusX * Math.cos(angle) - (nodeWidth / 2); 
+                    const y = centerY + radiusY * Math.sin(angle) - (nodeHeight / 2);
                     
                     const node = document.createElement('div');
                     node.className = 'mindmap-node';
@@ -510,8 +528,6 @@
 
 
             // --- DYNAMIC AI PROJECTS SECTION ---
-            
-            // 1. DATA: Array of project objects. Edit this to add, remove, or change projects.
             const aiProjects = [
                 {
                     id: '01',
@@ -578,7 +594,6 @@
                 }
             ];
 
-            // 2. RENDER FUNCTION: Creates HTML from the data array and injects it into the page.
             const renderAIProjects = () => {
                 const container = document.getElementById('ai-projects-container');
                 if (!container) return;
@@ -612,8 +627,6 @@
 
                 container.innerHTML = projectsHTML;
             };
-
-            // 3. EXECUTION: Call the render function and then apply animations to the new elements.
             renderAIProjects();
             
             document.querySelectorAll('.project-card').forEach(el => {
