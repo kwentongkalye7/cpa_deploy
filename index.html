@@ -3,348 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carlo Pinto - CPA | AI Practitioner</title>
+    <title>Carlo Pinto - CPA | AI-Augmented Domain Expert</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --bg-primary: #05080a;
+            --bg-secondary: #0a0e12;
+            --bg-card: #10141a;
+            --text-primary: #f0f0f0;
+            --text-secondary: #a0a0a0;
+            --accent: #00e0ff;
+            --accent-dim: #00b8d4;
+            --border: #2a2a2a;
+            --gradient: linear-gradient(135deg, var(--accent) 0%, var(--accent-dim) 100%);
         }
 
-        :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #111111;
-            --bg-card: #161616;
-            --text-primary: #ffffff;
-            --text-secondary: #a0a0a0;
-            --accent: #00d4ff;
-            --accent-dim: #0099cc;
-            --border: #2a2a2a;
-            --gradient: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
             color: var(--text-primary);
             background: var(--bg-primary);
-            position: relative;
             overflow-x: hidden;
         }
 
-        /* Neural network background pattern */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 40% 20%, rgba(0, 212, 255, 0.08) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 60px 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Header with neural network nodes */
-        header {
-            position: relative;
-            padding: 60px 0;
-            margin-bottom: 60px;
-            text-align: center;
-        }
-
-        header::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 1px;
-            background: var(--gradient);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
-        }
-
-        h1 {
-            font-size: 3rem;
-            font-weight: 300;
-            letter-spacing: -0.02em;
-            margin-bottom: 12px;
+        .gradient-text {
             background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .subtitle {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            font-weight: 300;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-        }
-
-        /* Mission statement card */
-        .mission-card {
-            background: var(--bg-card);
+        .glass-card {
+            background: rgba(16, 20, 26, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 32px;
-            margin-bottom: 60px;
-            position: relative;
-            overflow: hidden;
         }
-
-        .mission-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--gradient);
+        
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
-        .mission-card p {
-            font-size: 1.125rem;
-            line-height: 1.8;
-            color: var(--text-secondary);
-        }
-
-        /* Section headers with circuit design */
-        .section-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 32px;
-            position: relative;
-        }
-
-        .section-header::before {
-            content: '';
-            position: absolute;
-            left: -20px;
-            width: 8px;
-            height: 8px;
-            background: var(--accent);
-            border-radius: 50%;
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
-        }
-
-        h2 {
-            font-size: 1.75rem;
-            font-weight: 200;
-            color: var(--text-primary);
-            letter-spacing: -0.01em;
-        }
-
-        .section-line {
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(90deg, var(--border) 0%, transparent 100%);
-            margin-left: 20px;
-        }
-
-        /* Experience blocks */
-        .experience-grid {
-            display: grid;
-            gap: 20px;
-            margin-bottom: 60px;
-        }
-
-        .experience-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 24px;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .experience-card:hover {
-            border-color: var(--accent-dim);
-            transform: translateX(5px);
-        }
-
-        .experience-card::before {
-            content: '▹';
-            position: absolute;
-            left: -10px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--accent);
-            font-size: 1.5rem;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .experience-card:hover::before {
-            opacity: 1;
-        }
-
-        .experience-card p {
-            color: var(--text-secondary);
-            line-height: 1.7;
-        }
-
-        /* AI Projects with matrix-like numbering */
-        .project {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 28px;
-            margin-bottom: 24px;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .project:hover {
-            background: #1a1a1a;
-            border-color: var(--accent-dim);
-        }
-
-        .project-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-
-        .project-number {
-            width: 32px;
-            height: 32px;
-            background: var(--gradient);
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 16px;
-            font-weight: 600;
-            color: var(--bg-primary);
-            font-size: 0.875rem;
-        }
-
-        .project-title {
-            font-size: 1.25rem;
-            font-weight: 400;
-            color: var(--text-primary);
-        }
-
-        .project-content {
-            color: var(--text-secondary);
-            line-height: 1.7;
-            font-size: 0.95rem;
-        }
-
-        /* Tech stack tags */
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 16px;
-        }
-
-        .tech-tag {
-            padding: 4px 12px;
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 4px;
-            font-size: 0.75rem;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        /* Connect section */
-        .connect-section {
-            margin-top: 80px;
-            padding: 40px;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(0, 153, 204, 0.05) 100%);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .connect-section h2 {
-            margin-bottom: 20px;
-        }
-
-        .connect-section p {
-            color: var(--text-secondary);
-            font-size: 1.125rem;
-            margin-bottom: 32px;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 14px 32px;
-            background: var(--gradient);
-            color: var(--bg-primary);
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: 500;
-            font-size: 1rem;
-            letter-spacing: 0.02em;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 24px rgba(0, 212, 255, 0.3);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 32px rgba(0, 212, 255, 0.4);
-        }
-
-        /* Grid pattern overlay for sections */
-        .grid-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            pointer-events: none;
-            opacity: 0.5;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.25rem;
-            }
-
-            .container {
-                padding: 40px 20px;
-            }
-
-            .section-header::before {
-                display: none;
-            }
-        }
-
-        /* Subtle animations */
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.5;
-            }
-        }
-
-        .section-header::before {
-            animation: pulse 2s infinite;
+        
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 224, 255, 0.1);
         }
 
         /* Scrollbar styling */
@@ -364,222 +71,501 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--accent);
         }
+
+        /* Mind Map Styling */
+        .mindmap-container {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mindmap-center {
+            position: absolute;
+            z-index: 10;
+        }
+
+        .mindmap-node {
+            position: absolute;
+            background: #ffffff; /* Changed to white for visibility */
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden; /* Ensures content stays within circle */
+        }
+        
+        .mindmap-node:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 224, 255, 0.2);
+        }
+
+        .mindmap-node img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            /* Removed grayscale filter to show original logos */
+        }
+
+        .mindmap-line {
+            position: absolute;
+            background-color: var(--border);
+            transform-origin: 0 0;
+            z-index: 1;
+        }
+         .tech-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(0, 224, 255, 0.1);
+            border: 1px solid rgba(0, 224, 255, 0.2);
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            color: var(--accent);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
     </style>
 </head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Carlo Pinto</h1>
-            <div class="subtitle">CPA | AI Practitioner</div>
+<body class="antialiased">
+    <!-- Aurora Background -->
+    <div class="fixed top-0 left-0 w-full h-full -z-10 overflow-hidden">
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full filter blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full filter blur-3xl animate-pulse animation-delay-4000"></div>
+    </div>
+
+    <nav class="sticky top-0 z-50 glass-card">
+        <div class="container mx-auto max-w-4xl px-6">
+            <div class="flex justify-center items-center h-16 space-x-8">
+                <a href="#cpa-journey" class="text-gray-300 hover:text-cyan-400 transition-colors duration-300">CPA Journey</a>
+                <a href="#ai-innovation" class="text-gray-300 hover:text-cyan-400 transition-colors duration-300">AI Innovation</a>
+                <a href="#connect" class="text-gray-300 hover:text-cyan-400 transition-colors duration-300">Connect</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container mx-auto max-w-4xl px-6 py-16 md:py-24">
+
+        <!-- HEADER SECTION -->
+        <header class="text-center mb-20 md:mb-24">
+             <canvas id="header-canvas" class="w-full h-48 rounded-xl mb-8 border border-cyan-500/20 shadow-lg shadow-cyan-500/10"></canvas>
+
+            <h1 class="text-4xl md:text-6xl font-bold tracking-tight mb-3">
+                Carlo Pinto
+            </h1>
+            <p class="text-xl md:text-2xl font-light tracking-widest text-gray-400 uppercase">
+                CPA <span class="text-cyan-400 mx-2">|</span> AI-Augmented Domain Expert
+            </p>
         </header>
 
-        <div class="mission-card">
-            <p>As a Certified Public Accountant and AI Practitioner, I bridge the crucial gap between traditional finance and transformative artificial intelligence. My mission is to empower businesses by revolutionizing accounting and operational workflows with intelligent automation, unlocking new levels of efficiency and insight.</p>
-        </div>
-
-        <div class="section-header">
-            <h2>Professional Excellence</h2>
-            <div class="section-line"></div>
-        </div>
-
-        <div class="experience-grid">
-            <div class="experience-card">
-                <p>Licensed CPA with a proven track record in financial reporting, auditing, and tax strategy across diverse industries. Successfully led teams to implement best practices and ensure robust regulatory compliance.</p>
-            </div>
-
-            <div class="experience-card">
-                <p>Passionate former accounting educator dedicated to demystifying complex financial concepts and fostering professional growth. Mentored numerous aspiring CPAs, guiding them to certification success.</p>
-            </div>
-
-            <div class="experience-card">
-                <p>Championed digital transformation within traditional accounting environments, spearheading initiatives that integrated automation and modernized workflows, resulting in efficiency gains exceeding 40%.</p>
-            </div>
-        </div>
-
-        <div class="section-header">
-            <h2>AI Innovation Journey</h2>
-            <div class="section-line"></div>
-        </div>
-
-        <div style="margin-bottom: 32px;">
-            <p style="color: var(--text-secondary); line-height: 1.7;">My evolution into AI is driven by a commitment to pioneering innovation within professional services. I focus on developing and implementing AI solutions that address real-world financial challenges and create tangible value.</p>
-        </div>
-
-        <div class="project">
-            <div class="project-header">
-                <div class="project-number">01</div>
-                <div class="project-title">BIR Tax Compliance Automation System</div>
-            </div>
-            <div class="project-content">
-                Built a comprehensive automation system for Philippine Bureau of Internal Revenue (BIR) compliance workflows. The system automatically processes DAT file submissions, searches for BIR confirmation emails, extracts HTML content, converts to PDF with proper naming conventions, and uploads to Google Drive folders. Overcame challenges including Gmail thread splitting, PDF rendering fidelity, and cached file duplication issues. Implemented cross-reference validation by TIN and file type (QAP, SLSP, SAWT) to ensure data integrity. This automation reduced manual processing from hours to minutes, handling hundreds of client submissions seamlessly.
-            </div>
-            <div class="tech-stack">
-                <span class="tech-tag">Python</span>
-                <span class="tech-tag">Gmail API</span>
-                <span class="tech-tag">PDFShift</span>
-                <span class="tech-tag">Google Drive</span>
-                <span class="tech-tag">Browser Automation</span>
-            </div>
-        </div>
-
-        <div class="project">
-            <div class="project-header">
-                <div class="project-number">02</div>
-                <div class="project-title">Self-Hosted AI HR Agent</div>
-            </div>
-            <div class="project-content">
-                Developed a privacy-focused AI HR agent for resume-job description matching, running entirely on-premises. Built with Dockerized Ollama REST API using quantized Llama 3 (8B), integrated via LangChain in Flask. Implemented PyPDFLoader for resume parsing, SentenceTransformers for embeddings, and FAISS-CPU as vector store. The system generates AI-driven candidate fit evaluations while maintaining strict data confidentiality - crucial for our firm's requirements. Currently enhancing with quantitative match scoring and exploring more capable language models while prioritizing the balance between performance and privacy.
-            </div>
-            <div class="tech-stack">
-                <span class="tech-tag">Llama 3 8B</span>
-                <span class="tech-tag">Docker</span>
-                <span class="tech-tag">LangChain</span>
-                <span class="tech-tag">FAISS</span>
-                <span class="tech-tag">Flask</span>
-            </div>
-        </div>
-
-        <div class="project">
-            <div class="project-header">
-                <div class="project-number">03</div>
-                <div class="project-title">Tax & Accounting Process Automation Suite</div>
-            </div>
-            <div class="project-content">
-                Created multiple Python automation scripts that transformed our tax and accounting workflows. Developed a GUI app combining quarterly income tax processing, cutting time by 70%. Built intelligent file renaming systems that match TINs against client databases and append taxpayer names automatically. Implemented context engineering techniques with AI assistants, completing complex automation tasks in 13 minutes that would've taken full days manually. These tools demonstrate how AI-assisted development accelerates traditional accounting processes while maintaining accuracy and compliance.
-            </div>
-            <div class="tech-stack">
-                <span class="tech-tag">Python</span>
-                <span class="tech-tag">Claude</span>
-                <span class="tech-tag">GUI Development</span>
-                <span class="tech-tag">Excel Processing</span>
-            </div>
-        </div>
-
-        <div class="project">
-            <div class="project-header">
-                <div class="project-number">04</div>
-                <div class="project-title">Philippine Tax Assistant - LLM Fine-Tuning & RAG</div>
-            </div>
-            <div class="project-content">
-                Pioneered local LLM fine-tuning for Philippine tax assistance on M3 Mac (16GB RAM). Started with Gemma 2B and TinyLlama 1.1B, navigating technical challenges including gradient checkpointing, NaN losses, and catastrophic forgetting with limited hardware. Evolved to implement RAG architecture using quantized Llama 3 8B, LangChain pipeline, and FAISS vector database. This progression from pure fine-tuning to RAG demonstrated critical lessons about factual accuracy limitations in constrained environments and the importance of retrieval-augmented approaches for domain-specific applications.
-            </div>
-            <div class="tech-stack">
-                <span class="tech-tag">Gemma 2B</span>
-                <span class="tech-tag">Llama 3</span>
-                <span class="tech-tag">RAG</span>
-                <span class="tech-tag">LangChain</span>
-                <span class="tech-tag">FAISS</span>
-            </div>
-        </div>
-
-        <div class="project">
-            <div class="project-header">
-                <div class="project-number">05</div>
-                <div class="project-title">AI-Powered ERP Development</div>
-            </div>
-            <div class="project-content">
-                Currently developing a comprehensive AI-powered accounting and tax platform built on Tryton ERP, designed for deployment to paid clients. Integrating OCR and LLM capabilities with custom modules for Philippine withholding tax and mandatory government contributions (SSS, PhilHealth, Pag-IBIG). Also exploring Odoo Community Edition with custom HR Payroll modules tailored to Philippine regulations. This project leverages my extensive ERP experience from Nestlé, Maersk, and SC Johnson to create practical, scalable solutions that bridge traditional accounting with AI innovation.
-            </div>
-            <div class="tech-stack">
-                <span class="tech-tag">Tryton ERP</span>
-                <span class="tech-tag">Odoo</span>
-                <span class="tech-tag">OCR</span>
-                <span class="tech-tag">Python</span>
-                <span class="tech-tag">LLM Integration</span>
-            </div>
-        </div>
-
-        <div class="project">
-            <div class="project-header">
-                <div class="project-number">06</div>
-                <div class="project-title">Model Testing & Evaluation Research</div>
-            </div>
-            <div class="project-content">
-                Continuously evaluate emerging AI models for practical accounting applications. Tested GPT-OSS 20B/120B (MoE architecture with 5.1B active parameters), GLM 4.5 (hybrid inference modes for agent applications), Kimi K2 (1 trillion parameters Chinese model), Horizon Beta (256K context, 150 tokens/sec), Grok 4 Heavy (multi-agent system), and SmolLM3-3B (WebGPU browser deployment). Also experimented with ChatGPT Agent for autonomous calendar management and tested various models for complex accounting problems, architectural modeling, and code generation. This ongoing research ensures we leverage the most capable models for specific use cases.
-            </div>
-            <div class="tech-stack">
-                <span class="tech-tag">GPT-OSS</span>
-                <span class="tech-tag">GLM 4.5</span>
-                <span class="tech-tag">Kimi K2</span>
-                <span class="tech-tag">Grok 4</span>
-                <span class="tech-tag">SmolLM3</span>
-            </div>
-        </div>
-
-        <div class="project">
-            <div class="project-header">
-                <div class="project-number">07</div>
-                <div class="project-title">Transformer Architecture Visualization</div>
-            </div>
-            <div class="project-content">
-                To deepen my understanding of the models I work with, I've been creating visualizations to explore the inner workings of transformer architectures, often referencing explanations like those provided by Anthropic for Claude. My process involves breaking down the model step-by-step: tokenization, embeddings, positional encoding, self-attention mechanisms, and feed-forward networks. Critical components like residual connections and layer normalization are visualized to understand how transformers comprehend language structure and meaning, making them effective for translation, summarization, and text generation.
-            </div>
-            <div class="tech-stack">
-                <span class="tech-tag">Transformers</span>
-                <span class="tech-tag">Neural Networks</span>
-                <span class="tech-tag">Visualization</span>
-                <span class="tech-tag">Claude</span>
-            </div>
-        </div>
-
-        <div class="connect-section">
-            <div class="grid-overlay"></div>
-            <h2>Let's Build the Future</h2>
-            <p>I am eager to explore AI's potential in finance, collaborate on groundbreaking projects, or assist your organization in navigating the future of accounting. Let's connect and discuss the possibilities.</p>
-            
-            <div style="display: flex; justify-content: center; gap: 40px; margin: 32px 0; flex-wrap: wrap;">
-                <div style="text-align: left;">
-                    <div style="color: var(--accent); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">Email</div>
-                    <a href="mailto:contact@carlopinto.pro" style="color: var(--text-secondary); text-decoration: none; transition: color 0.3s ease;">hello@carlopinto.pro</a>
-                </div>
-                <div style="text-align: left;">
-                    <div style="color: var(--accent); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">LinkedIn</div>
-                    <a href="https://linkedin.com/in/carlopinto" style="color: var(--text-secondary); text-decoration: none; transition: color 0.3s ease;">linkedin.com/in/carlopinto</a>
-                </div>
-                <div style="text-align: left;">
-                    <div style="color: var(--accent); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">Phone</div>
-                    <a href="tel:+1234567890" style="color: var(--text-secondary); text-decoration: none; transition: color 0.3s ease;">+63 (917) 550-0799</a>
-                </div>
+        <!-- CPA JOURNEY -->
+        <section id="cpa-journey" class="mb-20 md:mb-28">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4"><span class="gradient-text">My CPA Journey</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">A career built on a foundation of financial expertise, regulatory compliance, and strategic leadership across diverse, world-class organizations.</p>
             </div>
             
-            <a href="mailto:contact@carlopinto.pro" class="cta-button">Send Message</a>
-        </div>
+            <div class="mindmap-container">
+                <div id="mindmap-lines"></div>
+                <div class="mindmap-center">
+                    <div class="w-32 h-32 bg-gray-800 rounded-full flex flex-col items-center justify-center text-center border-2 border-cyan-400 shadow-lg shadow-cyan-500/20">
+                        <span class="font-bold text-lg">Carlo Pinto</span>
+                        <span class="text-xs text-cyan-400">CPA, MBA</span>
+                    </div>
+                </div>
+                <!-- Nodes will be injected here by JS -->
+            </div>
+        </section>
+
+        <!-- AI INNOVATION JOURNEY -->
+        <section id="ai-innovation" class="mb-20 md:mb-28">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4"><span class="gradient-text">AI Innovation Journey</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">My evolution into AI is driven by a commitment to pioneering innovation. I focus on developing AI solutions that address real-world financial challenges and create tangible value.</p>
+            </div>
+
+            <div id="ai-projects-container" class="space-y-16">
+                <!-- AI Projects will be dynamically injected here by JavaScript -->
+            </div>
+        </section>
+
+
+        <!-- CONNECT SECTION -->
+        <section id="connect" class="text-center">
+            <div class="glass-card rounded-xl p-8 md:p-12 relative overflow-hidden">
+                <div class="absolute -top-1/2 -left-1/2 w-full h-full bg-cyan-500/10 rounded-full filter blur-3xl animate-pulse -z-10"></div>
+                <h2 class="text-3xl font-bold mb-4">Let's Build the Future</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto mb-8">I am eager to explore AI's potential in finance, collaborate on groundbreaking projects, or assist your organization in navigating the future of accounting. Let's connect and discuss the possibilities.</p>
+                <div class="flex justify-center items-center gap-8 flex-wrap mb-8 text-gray-300">
+                    <a href="mailto:hello@carlopinto.pro" class="hover:text-cyan-400 transition-colors">hello@carlopinto.pro</a>
+                    <a href="https://linkedin.com/in/carlopinto" target="_blank" class="hover:text-cyan-400 transition-colors">linkedin.com/in/carlopinto</a>
+                    <span class="hover:text-cyan-400 transition-colors">+63 (917) 550-0799</span>
+                </div>
+                <a href="mailto:hello@carlopinto.pro" 
+                   class="inline-block bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold py-3 px-8 rounded-lg shadow-lg shadow-cyan-500/20 hover:scale-105 transform transition-transform duration-300">
+                    Send Message
+                </a>
+            </div>
+        </section>
+
     </div>
 
     <script>
-        // Add subtle parallax effect to background gradients
-        document.addEventListener('mousemove', (e) => {
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
-            
-            document.body.style.backgroundImage = `
-                radial-gradient(circle at ${20 + x * 10}% ${50 + y * 10}%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at ${80 - x * 10}% ${80 - y * 10}%, rgba(0, 212, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at ${40 + x * 5}% ${20 + y * 5}%, rgba(0, 212, 255, 0.08) 0%, transparent 50%)
-            `;
-        });
+        document.addEventListener('DOMContentLoaded', () => {
+            // Smooth reveal on scroll observer
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.remove('opacity-0', 'translate-y-5');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
 
-        // Smooth reveal on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
+            // Observe static elements
+            document.querySelectorAll('.glass-card, .mindmap-container').forEach(el => {
+                el.classList.add('opacity-0', 'translate-y-5', 'transition-all', 'duration-700', 'ease-out');
+                observer.observe(el);
             });
-        }, observerOptions);
+            
+            // --- HEADER CANVAS ANIMATION V2: AI Assistant Typing ---
+            const canvas = document.getElementById('header-canvas');
+            const ctx = canvas.getContext('2d');
 
-        document.querySelectorAll('.project, .experience-card').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
+            const prompts = [
+                {
+                    prompt: "Can AI detect revenue recognition issues in our financials?",
+                    answer: "Yes. I can flag unusual spikes in revenue near quarter-end and contracts with aggressive recognition patterns."
+                },
+                {
+                    prompt: "How do we analyze the impact of switching depreciation methods?",
+                    answer: "I’ll simulate expense schedules, show the effect on net income and asset values, and compare tax shields."
+                },
+                {
+                    prompt: "Can you model the effect of a leveraged buyout on our balance sheet?",
+                    answer: "Yes. I’ll project post-buyout leverage ratios, interest coverage, and simulate cash flow for debt service."
+                },
+                {
+                    prompt: "How can AI improve fraud detection in accounts payable?",
+                    answer: "By scanning for duplicate invoices, vendor anomalies, and unusual payment patterns to score fraud risk."
+                },
+                {
+                    prompt: "What happens if a subsidiary pays dividends to the parent?",
+                    answer: "The dividend is eliminated in consolidation since it’s internal, but I’ll reflect the cash movement in the sub ledger."
+                },
+                {
+                    prompt: "Can you run a scenario where we refinance short-term debt?",
+                    answer: "Yes. I’ll restructure liabilities, calculate new interest, and project liquidity to show improved working capital."
+                },
+                {
+                    prompt: "How can AI enhance ratio analysis beyond traditional methods?",
+                    answer: "AI can detect non-linear relationships, benchmark against peers in real time, and predict future distress."
+                },
+                {
+                    prompt: "How do stock repurchases affect earnings per share (EPS)?",
+                    answer: "A repurchase reduces shares outstanding, boosting EPS, but I’ll also model how cash outflow impacts valuation."
+                },
+                {
+                    prompt: "Can AI simulate sensitivity analysis for our investment portfolio?",
+                    answer: "Yes. I can stress-test returns under different rate, inflation, and FX scenarios and show outcome probabilities."
+                },
+                {
+                    prompt: "How do intercompany loans affect consolidated financials?",
+                    answer: "The loan is eliminated in consolidation, but I’ll adjust for unrealized FX gains or losses if applicable."
+                }
+            ];
+
+            let currentPromptIndex = 0;
+            let currentText = '';
+            let charIndex = 0;
+            let isTypingPrompt = true;
+            let frameCount = 0;
+            const typingSpeed = 1; // Faster typing speed
+            const pauseDuration = 120; // frames to pause
+
+            // --- Text Wrapping Function ---
+            const wrapText = (text, maxWidth) => {
+                if (!text) return [];
+                const words = text.split(' ');
+                let lines = [];
+                let currentLine = words[0];
+
+                for (let i = 1; i < words.length; i++) {
+                    const word = words[i];
+                    const width = ctx.measureText(currentLine + " " + word).width;
+                    if (width < maxWidth) {
+                        currentLine += " " + word;
+                    } else {
+                        lines.push(currentLine);
+                        currentLine = word;
+                    }
+                }
+                lines.push(currentLine);
+                return lines;
+            };
+
+
+            const resizeCanvas = () => {
+                canvas.width = canvas.offsetWidth * window.devicePixelRatio;
+                canvas.height = canvas.offsetHeight * window.devicePixelRatio;
+                ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+            };
+
+            const animate = () => {
+                resizeCanvas();
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                const fontSize = 14;
+                const lineHeight = 20;
+                const padding = 20;
+                const maxWidth = canvas.offsetWidth - (padding * 2);
+                ctx.font = `500 ${fontSize}px 'Inter', sans-serif`;
+
+                let currentFullText, textToType;
+                
+                if (isTypingPrompt) {
+                    textToType = `> ${prompts[currentPromptIndex].prompt}`;
+                } else {
+                    textToType = prompts[currentPromptIndex].answer;
+                }
+
+                if (frameCount % typingSpeed === 0 && charIndex < textToType.length) {
+                    charIndex++;
+                }
+                currentFullText = textToType.substring(0, charIndex);
+
+                // --- Drawing Logic ---
+                const promptFullText = `> ${prompts[currentPromptIndex].prompt}`;
+                const answerFullText = prompts[currentPromptIndex].answer;
+
+                const wrappedPrompt = wrapText(promptFullText, maxWidth);
+                const wrappedAnswer = wrapText(answerFullText, maxWidth);
+
+                const totalLines = wrappedPrompt.length + wrappedAnswer.length;
+                let startY = (canvas.offsetHeight / 2) - (totalLines * lineHeight / 2) + (lineHeight/2);
+                
+                let lastLineX = padding;
+                let lastLineY = startY;
+
+                // Always draw the full prompt when typing answer
+                if (!isTypingPrompt) {
+                    ctx.fillStyle = '#a0a0a0';
+                    wrappedPrompt.forEach(line => {
+                        ctx.fillText(line, padding, startY);
+                        startY += lineHeight;
+                    });
+                }
+                
+                // Draw the text being typed (prompt or answer)
+                const textToDraw = isTypingPrompt ? currentFullText : currentFullText;
+                const wrappedCurrentText = wrapText(textToDraw, maxWidth);
+                
+                ctx.fillStyle = isTypingPrompt ? '#a0a0a0' : '#00e0ff'; // Different colors for prompt/answer
+                wrappedCurrentText.forEach((line, index) => {
+                    ctx.fillText(line, padding, startY);
+                    if (index < wrappedCurrentText.length - 1) {
+                        startY += lineHeight;
+                    }
+                });
+
+                lastLineX = padding + ctx.measureText(wrappedCurrentText[wrappedCurrentText.length - 1] || '').width;
+                lastLineY = startY;
+
+                // Blinking cursor
+                if (frameCount % 60 < 30) {
+                     ctx.fillText('_', lastLineX, lastLineY);
+                }
+
+                // --- State Change Logic ---
+                if (charIndex >= textToType.length) {
+                    if (frameCount > pauseDuration) {
+                        frameCount = 0;
+                        charIndex = 0;
+                        if (isTypingPrompt) {
+                            isTypingPrompt = false;
+                        } else {
+                            isTypingPrompt = true;
+                            currentPromptIndex = (currentPromptIndex + 1) % prompts.length;
+                        }
+                    } else {
+                        frameCount++;
+                    }
+                }
+
+                requestAnimationFrame(animate);
+            };
+
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+            animate();
+
+
+            // Mind Map Generation
+            const companies = [
+                { name: 'Banco de Oro', logo: 'assets/bdo.png' },
+                { name: 'Nestle', logo: 'assets/nestle.png' },
+                { name: 'Maersk', logo: 'assets/maersk.png' },
+                { name: 'International Organization for Migration', logo: 'assets/iom.jpeg' },
+                { name: 'SC Johnson', logo: 'assets/sc-johnson.png' },
+                { name: 'UST Legazpi', logo: 'assets/ust-legazpi.png' },
+                { name: 'Mines and Geosciences Bureau', logo: 'assets/mgb.png' },
+                { name: 'AGPT Accounting and Business Consultancy', logo: 'assets/agpt.png' }
+            ];
+            const mindmapContainer = document.querySelector('.mindmap-container');
+            const linesContainer = document.getElementById('mindmap-lines');
+            const radius = 250;
+            const centerX = mindmapContainer.offsetWidth / 2;
+            const centerY = mindmapContainer.offsetHeight / 2;
+            const nodeSize = 80;
+
+            companies.forEach((company, index) => {
+                const angle = (index / companies.length) * 2 * Math.PI;
+                const x = centerX + radius * Math.cos(angle) - (nodeSize / 2);
+                const y = centerY + radius * Math.sin(angle) - (nodeSize / 2);
+                const node = document.createElement('div');
+                node.className = 'mindmap-node';
+                node.style.width = `${nodeSize}px`;
+                node.style.height = `${nodeSize}px`;
+                node.style.left = `${x}px`;
+                node.style.top = `${y}px`;
+                node.innerHTML = `<img src="${company.logo}" alt="${company.name}" title="${company.name}" onerror="this.src='https://placehold.co/100x100/10141a/ffffff?text=Logo'"/>`;
+                mindmapContainer.appendChild(node);
+                const line = document.createElement('div');
+                line.className = 'mindmap-line';
+                const distance = Math.sqrt(Math.pow(x + nodeSize/2 - centerX, 2) + Math.pow(y + nodeSize/2 - centerY, 2));
+                const lineAngle = Math.atan2(y + nodeSize/2 - centerY, x + nodeSize/2 - centerX) * (180 / Math.PI);
+                line.style.width = `${distance}px`;
+                line.style.height = '1px';
+                line.style.left = `${centerX}px`;
+                line.style.top = `${centerY}px`;
+                line.style.transform = `rotate(${lineAngle}deg)`;
+                linesContainer.appendChild(line);
+            });
+
+
+            // --- DYNAMIC AI PROJECTS SECTION ---
+            
+            // 1. DATA: Array of project objects. Edit this to add, remove, or change projects.
+            const aiProjects = [
+                {
+                    id: '01',
+                    title: 'BIR Tax Compliance Automation System',
+                    description: 'Built a system to automate BIR compliance workflows, processing DAT files, extracting email content, converting to PDF, and uploading to Google Drive, reducing manual processing from hours to minutes.',
+                    image: 'https://placehold.co/600x400/10141a/00e0ff?text=Tax+Automation+System',
+                    imageAlt: 'BIR Tax Compliance Automation System',
+                    tags: ['Python', 'Gmail API', 'PDFShift', 'Google Drive'],
+                    layout: 'image-left'
+                },
+                {
+                    id: '02',
+                    title: 'Self-Hosted AI HR Agent',
+                    description: 'Developed a privacy-focused, on-premises AI HR agent for resume-job matching using Dockerized Ollama, Llama 3, LangChain, and FAISS, ensuring strict data confidentiality.',
+                    image: 'https://placehold.co/600x400/10141a/00e0ff?text=Secure+HR+AI+Agent',
+                    imageAlt: 'Self-Hosted AI HR Agent',
+                    tags: ['Llama 3', 'Docker', 'LangChain', 'FAISS', 'Flask'],
+                    layout: 'image-right'
+                },
+                {
+                    id: '03',
+                    title: 'Tax & Accounting Process Automation Suite',
+                    description: 'Created Python scripts and a GUI app that transformed tax/accounting workflows, cutting income tax processing time by 70% and automating intelligent file renaming systems.',
+                    image: 'https://placehold.co/600x400/10141a/00e0ff?text=Automation+Suite+GUI',
+                    imageAlt: 'Tax & Accounting Process Automation Suite',
+                    tags: ['Python', 'Claude', 'GUI', 'Excel'],
+                    layout: 'image-left'
+                },
+                {
+                    id: '04',
+                    title: 'Philippine Tax Assistant - LLM Fine-Tuning & RAG',
+                    description: 'Pioneered local LLM fine-tuning for Philippine tax assistance on M3 Mac, evolving from pure fine-tuning (Gemma, TinyLlama) to a more accurate RAG architecture with Llama 3.',
+                    image: 'https://placehold.co/600x400/10141a/00e0ff?text=RAG+Tax+Assistant',
+                    imageAlt: 'Philippine Tax Assistant',
+                    tags: ['Gemma 2B', 'Llama 3', 'RAG', 'LangChain'],
+                    layout: 'image-right'
+                },
+                {
+                    id: '05',
+                    title: 'AI-Powered ERP Development',
+                    description: 'Developing an AI-powered accounting and tax platform on Tryton ERP, integrating OCR and LLM for Philippine tax modules and government contributions.',
+                    image: 'https://placehold.co/600x400/10141a/00e0ff?text=AI-Powered+ERP',
+                    imageAlt: 'AI-Powered ERP Development',
+                    tags: ['Tryton ERP', 'Odoo', 'OCR', 'Python', 'LLM'],
+                    layout: 'image-left'
+                },
+                {
+                    id: '06',
+                    title: 'Model Testing & Evaluation Research',
+                    description: 'Continuously evaluating emerging AI models like GPT-OSS, GLM 4.5, Kimi K2, and Grok 4 for practical accounting applications to leverage the most capable models for specific use cases.',
+                    image: 'https://placehold.co/600x400/10141a/00e0ff?text=Model+Evaluation',
+                    imageAlt: 'Model Testing & Evaluation Research',
+                    tags: ['GPT-OSS', 'GLM 4.5', 'Kimi K2', 'Grok 4'],
+                    layout: 'image-right'
+                },
+                {
+                    id: '07',
+                    title: 'Transformer Architecture Visualization',
+                    description: 'Creating visualizations to explore the inner workings of transformer architectures, from tokenization and embeddings to self-attention, to deepen my understanding of the models I use.',
+                    image: 'https://placehold.co/600x400/10141a/00e0ff?text=Transformer+Visualization',
+                    imageAlt: 'Transformer Architecture Visualization',
+                    tags: ['Transformers', 'Neural Networks', 'Visualization'],
+                    layout: 'image-left'
+                }
+            ];
+
+            // 2. RENDER FUNCTION: Creates HTML from the data array and injects it into the page.
+            const renderAIProjects = () => {
+                const container = document.getElementById('ai-projects-container');
+                if (!container) return;
+
+                let projectsHTML = '';
+                aiProjects.forEach(project => {
+                    const techTagsHTML = project.tags.map(tag => `<span class="tech-tag">${tag}</span>`).join('');
+
+                    const imageHTML = `
+                        <div class="md:col-span-2">
+                            <img src="${project.image}" alt="${project.imageAlt}" class="rounded-lg w-full h-full object-cover">
+                        </div>
+                    `;
+                    const contentHTML = `
+                        <div class="md:col-span-3">
+                            <h3 class="text-xl font-semibold text-cyan-400 mb-2">${project.id} / ${project.title}</h3>
+                            <p class="text-gray-400 mb-4 text-sm leading-relaxed">${project.description}</p>
+                            <div class="flex flex-wrap gap-2">
+                                ${techTagsHTML}
+                            </div>
+                        </div>
+                    `;
+                    
+                    const projectHTML = `
+                        <div class="project-card grid md:grid-cols-5 gap-8 items-center glass-card rounded-xl p-6">
+                            ${project.layout === 'image-left' ? imageHTML + contentHTML : contentHTML + imageHTML}
+                        </div>
+                    `;
+                    projectsHTML += projectHTML;
+                });
+
+                container.innerHTML = projectsHTML;
+            };
+
+            // 3. EXECUTION: Call the render function and then apply animations to the new elements.
+            renderAIProjects();
+            
+            document.querySelectorAll('.project-card').forEach(el => {
+                el.classList.add('opacity-0', 'translate-y-5', 'transition-all', 'duration-700', 'ease-out');
+                observer.observe(el);
+            });
         });
     </script>
 </body>
 </html>
+
