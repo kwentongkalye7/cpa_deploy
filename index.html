@@ -87,6 +87,11 @@
             z-index: 10;
         }
 
+        .mindmap-center-inner {
+             width: 128px;
+             height: 128px;
+        }
+
         .mindmap-node {
             position: absolute;
             display: flex;
@@ -168,6 +173,17 @@
                 font-size: 9px;
                 width: 75px;
             }
+            .mindmap-center-inner {
+                width: 110px;
+                height: 110px;
+                padding: 0.5rem;
+            }
+            .mindmap-center-inner .font-bold {
+                font-size: 1rem;
+            }
+            .mindmap-center-inner .text-xs {
+                font-size: 0.65rem;
+            }
          }
     </style>
 </head>
@@ -213,7 +229,7 @@
             <div class="mindmap-container">
                 <div id="mindmap-lines"></div>
                 <div class="mindmap-center">
-                    <div class="w-32 h-32 bg-gray-800 rounded-full flex flex-col items-center justify-center text-center border-2 border-cyan-400 shadow-lg shadow-cyan-500/20">
+                    <div class="mindmap-center-inner bg-gray-800 rounded-full flex flex-col items-center justify-center text-center border-2 border-cyan-400 shadow-lg shadow-cyan-500/20">
                         <span class="font-bold text-lg">Carlo Pinto</span>
                         <span class="text-xs text-cyan-400">CPA, MBA</span>
                     </div>
@@ -508,7 +524,7 @@
                 if (isVeryNarrow) {
                     const nodeSize = 50;
                     const nodeWidth = 80;
-                    const colOffsetX = containerWidth / 4;
+                    const colOffsetX = containerWidth / 3.5; 
                     const verticalSpacing = (containerHeight - 80) / 4;
 
                     const leftColX = centerX - colOffsetX - (nodeWidth / 2);
@@ -523,7 +539,7 @@
                     });
 
                 } else if (isMobile) {
-                    const radiusX = containerWidth / 2 - 70;
+                    const radiusX = containerWidth / 2 - 85; 
                     const radiusY = containerHeight / 2 - 90;
                     const nodeSize = 60;
                     const nodeWidth = 90;
