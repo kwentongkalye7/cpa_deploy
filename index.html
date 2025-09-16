@@ -89,34 +89,54 @@
 
         .mindmap-node {
             position: absolute;
-            background: #ffffff; /* Changed to white for visibility */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease;
+            z-index: 5; /* Ensure nodes are above lines */
+        }
+        
+        .mindmap-node:hover {
+            transform: scale(1.1);
+        }
+        
+        .mindmap-logo-wrapper {
+            background: #ffffff;
             border: 1px solid var(--border);
             border-radius: 50%;
             padding: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            overflow: hidden; /* Ensures content stays within circle */
-        }
-        
-        .mindmap-node:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 20px rgba(0, 224, 255, 0.2);
+            transition: box-shadow 0.3s ease;
+            overflow: hidden;
         }
 
-        .mindmap-node img {
-            width: 60px;
-            height: 60px;
+        .mindmap-node:hover .mindmap-logo-wrapper {
+            box-shadow: 0 0 20px rgba(0, 224, 255, 0.2);
+        }
+        
+        .mindmap-logo-wrapper img {
+            width: 100%;
+            height: 100%;
             object-fit: contain;
-            /* Removed grayscale filter to show original logos */
+        }
+
+        .mindmap-label {
+            margin-top: 8px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-align: center;
+            width: 120px;
+            line-height: 1.2;
         }
 
         .mindmap-line {
             position: absolute;
-            background-color: var(--border);
+            background-color: var(--accent-dim); /* Use accent color */
+            opacity: 0.5;
             transform-origin: 0 0;
-            z-index: 1;
+            z-index: 1; /* Ensure lines are behind nodes */
         }
          .tech-tag {
             display: inline-block;
@@ -129,6 +149,16 @@
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.05em;
+        }
+        
+        @media (max-width: 640px) {
+            .mindmap-container {
+                height: 500px; /* Adjusted height for labels */
+            }
+            .mindmap-label {
+                font-size: 10px;
+                width: 80px;
+            }
         }
     </style>
 </head>
@@ -410,7 +440,9 @@
             animate();
 
 
-            // Mind Map Generation
+            // --- RESPONSIVE MIND MAP GENERATION ---
+            const mindmapContainer = document.querySelector('.mindmap-container');
+            const linesContainer = document.getElementById('mindmap-lines');
             const companies = [
                 { name: 'Banco de Oro', logo: 'assets/bdo.png' },
                 { name: 'Nestle', logo: 'assets/nestle.png' },
@@ -419,38 +451,62 @@
                 { name: 'SC Johnson', logo: 'assets/sc-johnson.png' },
                 { name: 'UST Legazpi', logo: 'assets/ust-legazpi.png' },
                 { name: 'Mines and Geosciences Bureau', logo: 'assets/mgb.png' },
-                { name: 'AGPT Accounting and Business Consultancy', logo: 'assets/agpt.png' }
+                { name: 'AGPT', logo: 'assets/agpt.png' }
             ];
-            const mindmapContainer = document.querySelector('.mindmap-container');
-            const linesContainer = document.getElementById('mindmap-lines');
-            const radius = 250;
-            const centerX = mindmapContainer.offsetWidth / 2;
-            const centerY = mindmapContainer.offsetHeight / 2;
-            const nodeSize = 80;
 
-            companies.forEach((company, index) => {
-                const angle = (index / companies.length) * 2 * Math.PI;
-                const x = centerX + radius * Math.cos(angle) - (nodeSize / 2);
-                const y = centerY + radius * Math.sin(angle) - (nodeSize / 2);
-                const node = document.createElement('div');
-                node.className = 'mindmap-node';
-                node.style.width = `${nodeSize}px`;
-                node.style.height = `${nodeSize}px`;
-                node.style.left = `${x}px`;
-                node.style.top = `${y}px`;
-                node.innerHTML = `<img src="${company.logo}" alt="${company.name}" title="${company.name}" onerror="this.src='https://placehold.co/100x100/10141a/ffffff?text=Logo'"/>`;
-                mindmapContainer.appendChild(node);
-                const line = document.createElement('div');
-                line.className = 'mindmap-line';
-                const distance = Math.sqrt(Math.pow(x + nodeSize/2 - centerX, 2) + Math.pow(y + nodeSize/2 - centerY, 2));
-                const lineAngle = Math.atan2(y + nodeSize/2 - centerY, x + nodeSize/2 - centerX) * (180 / Math.PI);
-                line.style.width = `${distance}px`;
-                line.style.height = '1px';
-                line.style.left = `${centerX}px`;
-                line.style.top = `${centerY}px`;
-                line.style.transform = `rotate(${lineAngle}deg)`;
-                linesContainer.appendChild(line);
-            });
+            const generateMindMap = () => {
+                // Clear previous elements for responsiveness
+                linesContainer.innerHTML = '';
+                mindmapContainer.querySelectorAll('.mindmap-node').forEach(node => node.remove());
+
+                const containerWidth = mindmapContainer.offsetWidth;
+                const isMobile = containerWidth < 640;
+
+                const radius = isMobile ? containerWidth / 2 - 60 : 250;
+                const nodeSize = isMobile ? 60 : 80;
+                const nodeWidth = isMobile ? 80 : 120;
+                
+                const centerX = containerWidth / 2;
+                const centerY = mindmapContainer.offsetHeight / 2;
+
+                companies.forEach((company, index) => {
+                    const angle = (index / companies.length) * 2 * Math.PI;
+                    const nodeHeight = nodeSize + 40; 
+
+                    const x = centerX + radius * Math.cos(angle) - (nodeWidth / 2); 
+                    const y = centerY + radius * Math.sin(angle) - (nodeHeight / 2);
+                    
+                    const node = document.createElement('div');
+                    node.className = 'mindmap-node';
+                    node.style.width = `${nodeWidth}px`;
+                    node.style.left = `${x}px`;
+                    node.style.top = `${y}px`;
+                    
+                    node.innerHTML = `
+                        <div class="mindmap-logo-wrapper" style="width: ${nodeSize}px; height: ${nodeSize}px;">
+                            <img src="${company.logo}" alt="${company.name}" />
+                        </div>
+                        <span class="mindmap-label">${company.name}</span>
+                    `;
+                    mindmapContainer.appendChild(node);
+                    
+                    const line = document.createElement('div');
+                    line.className = 'mindmap-line';
+                    const lineTargetX = x + nodeWidth / 2;
+                    const lineTargetY = y + nodeSize / 2;
+                    const distance = Math.sqrt(Math.pow(lineTargetX - centerX, 2) + Math.pow(lineTargetY - centerY, 2));
+                    const lineAngle = Math.atan2(lineTargetY - centerY, lineTargetX - centerX) * (180 / Math.PI);
+                    line.style.width = `${distance}px`;
+                    line.style.height = '1px';
+                    line.style.left = `${centerX}px`;
+                    line.style.top = `${centerY}px`;
+                    line.style.transform = `rotate(${lineAngle}deg)`;
+                    linesContainer.appendChild(line);
+                });
+            };
+
+            generateMindMap();
+            window.addEventListener('resize', generateMindMap);
 
 
             // --- DYNAMIC AI PROJECTS SECTION ---
@@ -463,7 +519,7 @@
                     description: 'Built a system to automate BIR compliance workflows, processing DAT files, extracting email content, converting to PDF, and uploading to Google Drive, reducing manual processing from hours to minutes.',
                     image: 'https://placehold.co/600x400/10141a/00e0ff?text=Tax+Automation+System',
                     imageAlt: 'BIR Tax Compliance Automation System',
-                    tags: ['Python', 'Gmail API', 'PDFShift', 'Google Drive'],
+                    tags: ['Python', 'Gmail API', 'PDFShift', 'Google Drive', 'n8n'],
                     layout: 'image-left'
                 },
                 {
